@@ -1,6 +1,6 @@
 package funk
 
-// create a map from a slice with a key-derivation function
+// ToMap creates a map from a slice with a key-derivation function
 //
 // eg. I have a slice of thing structs that have a field ID and I want a map of id -> thing. then I can do
 //

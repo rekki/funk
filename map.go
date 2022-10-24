@@ -4,9 +4,9 @@ package funk
 func Map[A any, From any](from []From, mapper func(From) A) []A {
 	out := make([]A, len(from))
 
-	for _, item := range from {
+	for i, item := range from {
 		v := mapper(item)
-		out = append(out, v)
+		out[i] = v
 	}
 
 	return out

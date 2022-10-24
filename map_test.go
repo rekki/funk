@@ -25,6 +25,12 @@ func TestMap(t *testing.T) {
 
 	strs := Map(ones, func(t One) string { return t.name })
 
+	if len(strs) != len(ones) {
+		t.Fatalf(
+			"Mapping %v values should've resulted in as many values, but got %v instead",
+			len(ones), len(strs))
+	}
+
 	expected := "abb"
 	got := strings.Join(strs, "")
 	if got != expected {

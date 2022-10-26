@@ -8,6 +8,5 @@ func Map[A any, From any](from []From, mapper func(From) A) []A {
 		v := mapper(item)
 		out[i] = v
 	}
-
 	return out
 }

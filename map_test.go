@@ -8,8 +8,7 @@ import (
 	"github.com/rekki/go/pkg/util"
 )
 
-func TestMap(t *testing.T) {
-
+func TestMap_withNonPrimitives(t *testing.T) {
 	type One struct {
 		name string
 	}
@@ -28,17 +27,20 @@ func TestMap(t *testing.T) {
 
 	strs := Map(ones, func(t One) string { return t.name })
 
-	//if len(strs) != len(ones) {
-	//	t.Fatalf(
-	//		"Mapping %v values should've resulted in as many values, but got %v instead",
-	//		len(ones), len(strs))
-	//}
+	if len(strs) != len(ones) {
+		t.Fatalf(
+			"Mapping %v values should've resulted in as many values, but got %v instead",
+			len(ones), len(strs))
+	}
 
 	expected := "abb"
 	got := strings.Join(strs, "")
 	if got != expected {
 		t.Fatalf("Expected to get %s but got %s", expected, got)
 	}
+}
+
+func TestMap_fromNilSlice(t *testing.T) {
 
 	var nilInts []int = nil
 	zeroLengthInts := []int{}
@@ -49,6 +51,9 @@ func TestMap(t *testing.T) {
 			"Mapping %v should've resulted in an empty slice, but got %v instead",
 			nilInts, nilInts)
 	}
+}
+
+func TestMap_withPrimitives(t *testing.T) {
 
 	nums := []string{"one", "two", "three"}
 	expectedLengths := []int{3, 3, 5}

@@ -1,20 +1,33 @@
 package funk
 
 import (
-	"strings"
+	"reflect"
 	"testing"
+
+	"github.com/rekki/go/pkg/util"
+	"golang.org/x/exp/slices"
 )
 
 func TestUniqueStrings(t *testing.T) {
 
-	letters := []string{"a", "b", "b"}
+	letters := []string{"a", "b", "b", "c", "c", "c"}
 
-	dedup := Unique(letters)
+	expected := [3]string{"a", "b", "c"}
 
-	expected := "ab"
-	got := strings.Join(dedup, "")
-	if got != expected {
-		t.Fatalf("Expected to get %s but got %s", expected, got)
+	got := Unique(letters)
+	slices.Sort(got)
+	t.Logf("got: %s , expected %s", util.PPs(got), util.PPs(expected))
+	if cap(expected) != cap(got) {
+		t.Fatalf("Expected to have same capacity of %v but got capacity %v", cap(expected), cap(got))
+	}
+	if len(expected) != len(got) {
+		t.Fatalf("Expected to have same length of %v but got length %v", len(expected), len(got))
+	}
+	for i, exp := range expected {
+		reflect.DeepEqual(exp, got[i])
+	}
+	if reflect.DeepEqual(expected, got) {
+		t.Fatalf("Expected to get %s but got %s", util.PPs(expected), util.PPs(got))
 	}
 }
 
@@ -37,15 +50,20 @@ func TestUniqueStructs(t *testing.T) {
 		&two,
 	}
 
-	dedup := Unique(letters)
+	got := Unique(letters)
+	t.Logf("got: %s , expected %s", util.PPs(got), util.PPs(expected))
 
-	if len(dedup) != len(expected) {
-		t.Fatalf("Expected to get %d elements but got %d", len(expected), len(dedup))
+	if cap(expected) != cap(got) {
+		t.Fatalf("Expected to have same capacity of %v but got capacity %v", cap(expected), cap(got))
 	}
 
-	for idx := range dedup {
-		if dedup[idx] != expected[idx] {
-			t.Errorf("Element idx = %d doesn't match", idx)
+	if len(got) != len(expected) {
+		t.Fatalf("Expected to get %d elements but got %d", len(expected), len(got))
+	}
+
+	for idx := range got {
+		if got[idx] != expected[idx] {
+			t.Errorf("Element idx = %d doesn't match %s vs %s", idx, got[idx], expected[idx])
 		}
 	}
 }

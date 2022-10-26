@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/rekki/go/pkg/util"
+	"github.com/kr/pretty"
 )
 
 func TestGroupBy(t *testing.T) {
@@ -35,7 +35,7 @@ func TestGroupBy(t *testing.T) {
 
 	testNumbers := func(expectedNumbers []numberClass, numberType string) {
 		if !reflect.DeepEqual(expectedNumbers, numberMap[numberType]) {
-			t.Fatalf("Expected to get %s but got %s", util.PPs(expectedNumbers), util.PPs(numberMap[numberType]))
+			t.Fatalf("Expected to get %s but got %s", pretty.Sprint(expectedNumbers), pretty.Sprint(numberMap[numberType]))
 		}
 	}
 

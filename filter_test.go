@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/rekki/go/pkg/util"
+	"github.com/kr/pretty"
 )
 
 func TestFilter(t *testing.T) {
@@ -17,7 +17,7 @@ func TestFilter(t *testing.T) {
 	})
 
 	if !reflect.DeepEqual(filtered, expected) {
-		t.Fatalf("Expected to get %s but got %s", util.PPs(filtered), util.PPs(expected))
+		t.Fatalf("Expected to get %s but got %s", pretty.Sprint(filtered), pretty.Sprint(expected))
 	}
 }
 

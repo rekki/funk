@@ -3,7 +3,7 @@ package funk
 import (
 	"testing"
 
-	"github.com/rekki/go/pkg/util"
+	"github.com/kr/pretty"
 )
 
 func TestContains(t *testing.T) {
@@ -13,9 +13,9 @@ func TestContains(t *testing.T) {
 	doesNotContain4 := Contains(4, numbers)
 
 	if !doesContain2 {
-		t.Fatalf("Expected to get 'true' but got %s", util.PPs(doesContain2))
+		t.Fatalf("Expected to get 'true' but got %s", pretty.Sprint(doesContain2))
 	}
 	if !doesNotContain4 == false {
-		t.Fatalf("Expected to get 'true' but got %s", util.PPs(doesNotContain4))
+		t.Fatalf("Expected to get 'true' but got %s", pretty.Sprint(doesNotContain4))
 	}
 }

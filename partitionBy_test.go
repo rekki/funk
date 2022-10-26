@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/rekki/go/pkg/util"
+	"github.com/kr/pretty"
 )
 
 func TestPartitionBy(t *testing.T) {
@@ -18,9 +18,9 @@ func TestPartitionBy(t *testing.T) {
 	})
 
 	if !reflect.DeepEqual(expectedL, partitionByL) {
-		t.Fatalf("Expected to get %s but got %s", util.PPs(expectedL), util.PPs(partitionByL))
+		t.Fatalf("Expected to get %s but got %s", pretty.Sprint(expectedL), pretty.Sprint(partitionByL))
 	}
 	if !reflect.DeepEqual(expectedR, partitionByR) {
-		t.Fatalf("Expected to get %s but got %s", util.PPs(expectedR), util.PPs(partitionByR))
+		t.Fatalf("Expected to get %s but got %s", pretty.Sprint(expectedR), pretty.Sprint(partitionByR))
 	}
 }

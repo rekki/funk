@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/rekki/go/pkg/util"
+	"github.com/kr/pretty"
 )
 
 func TestMap_withNonPrimitives(t *testing.T) {
@@ -62,7 +62,7 @@ func TestMap_withPrimitives(t *testing.T) {
 		return len(word)
 	})
 	if !reflect.DeepEqual(lengths, expectedLengths) {
-		t.Fatalf("Mapping %s should have given %s but got %s", util.PPs(nums), util.PPs(expectedLengths), util.PPs(lengths))
+		t.Fatalf("Mapping %s should have given %s but got %s", pretty.Sprint(nums), pretty.Sprint(expectedLengths), pretty.Sprint(lengths))
 	}
 
 }

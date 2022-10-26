@@ -3,7 +3,7 @@ package funk
 import (
 	"testing"
 
-	"github.com/rekki/go/pkg/util"
+	"github.com/kr/pretty"
 )
 
 func TestExists(t *testing.T) {
@@ -23,9 +23,9 @@ func TestExists(t *testing.T) {
 	})
 
 	if !containsSemiPrimes == true {
-		t.Fatalf("Expected to get 'true' but got %s", util.PPs(containsSemiPrimes))
+		t.Fatalf("Expected to get 'true' but got %s", pretty.Sprint(containsSemiPrimes))
 	}
 	if !containsComposites == false {
-		t.Fatalf("Expected to get 'false' but got %s", util.PPs(containsComposites))
+		t.Fatalf("Expected to get 'false' but got %s", pretty.Sprint(containsComposites))
 	}
 }

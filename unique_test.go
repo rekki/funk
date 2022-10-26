@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/rekki/go/pkg/util"
+	"github.com/kr/pretty"
 	"golang.org/x/exp/slices"
 )
 
@@ -16,7 +16,7 @@ func TestUniqueStrings(t *testing.T) {
 
 	got := Unique(letters)
 	slices.Sort(got)
-	t.Logf("got: %s , expected %s", util.PPs(got), util.PPs(expected))
+	t.Logf("got: %s , expected %s", pretty.Sprint(got), pretty.Sprint(expected))
 	if cap(expected) != cap(got) {
 		t.Fatalf("Expected to have same capacity of %v but got capacity %v", cap(expected), cap(got))
 	}
@@ -27,7 +27,7 @@ func TestUniqueStrings(t *testing.T) {
 		reflect.DeepEqual(exp, got[i])
 	}
 	if reflect.DeepEqual(expected, got) {
-		t.Fatalf("Expected to get %s but got %s", util.PPs(expected), util.PPs(got))
+		t.Fatalf("Expected to get %s but got %s", pretty.Sprint(expected), pretty.Sprint(got))
 	}
 }
 
@@ -51,7 +51,7 @@ func TestUniqueStructs(t *testing.T) {
 	}
 
 	got := Unique(letters)
-	t.Logf("got: %s , expected %s", util.PPs(got), util.PPs(expected))
+	t.Logf("got: %s , expected %s", pretty.Sprint(got), pretty.Sprint(expected))
 
 	if cap(expected) != cap(got) {
 		t.Fatalf("Expected to have same capacity of %v but got capacity %v", cap(expected), cap(got))

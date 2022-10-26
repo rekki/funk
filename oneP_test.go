@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/rekki/go/pkg/util"
+	"github.com/kr/pretty"
 )
 
 func TestOneP(t *testing.T) {
@@ -20,6 +20,6 @@ func TestOneP(t *testing.T) {
 	})
 
 	if !reflect.DeepEqual(selectedOne, expected) {
-		t.Fatalf("Expected to get %s but got %s", util.PPs(selectedOne), util.PPs(expected))
+		t.Fatalf("Expected to get %s but got %s", pretty.Sprint(selectedOne), pretty.Sprint(expected))
 	}
 }

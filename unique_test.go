@@ -24,7 +24,9 @@ func TestUniqueStrings(t *testing.T) {
 		t.Fatalf("Expected to have same length of %v but got length %v", len(expected), len(got))
 	}
 	for i, exp := range expected {
-		reflect.DeepEqual(exp, got[i])
+		if !reflect.DeepEqual(exp, got[i]) {
+			t.Fatalf("Values for element %d did not match.  Got's [%s], vs expected's [%s]", i, pretty.Sprint(got[i]), pretty.Sprint(exp))
+		}
 	}
 	if reflect.DeepEqual(expected, got) {
 		t.Fatalf("Expected to get %s but got %s", pretty.Sprint(expected), pretty.Sprint(got))

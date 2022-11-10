@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestToAnyMap(t *testing.T) {
+func TestToBespokeMap(t *testing.T) {
 	type User struct {
 		ID   int
 		Name string

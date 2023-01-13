@@ -87,6 +87,81 @@ func TestToReverseMap(t *testing.T) {
 	}
 }
 
+func TestToReverseArrayMap(t *testing.T) {
+	type Puppy struct {
+		ID   int
+		Name string
+	}
+
+	puppy1 := Puppy{ID: 1, Name: "Tess"}
+	puppy2 := Puppy{ID: 2, Name: "Floss"}
+	puppy3 := Puppy{ID: 3, Name: "Snoopy"}
+
+	puppyMap := map[int]*Puppy{
+		1: &puppy1,
+		2: &puppy2,
+		3: &puppy3,
+	}
+
+	dupePuppyMap := map[int]*Puppy{
+		1: &puppy1,
+		2: &puppy2,
+		3: &puppy2,
+	}
+
+	tests := []struct {
+		name     string
+		puppyMap map[int]*Puppy
+		wantMap  map[*Puppy][]int
+	}{
+		{
+			name:     "map by ID",
+			puppyMap: puppyMap,
+			wantMap: map[*Puppy][]int{
+				&puppy1: {1},
+				&puppy2: {2},
+				&puppy3: {3},
+			},
+		},
+
+		{
+			name:     "all empty",
+			puppyMap: map[int]*Puppy{},
+			wantMap:  map[*Puppy][]int{},
+		},
+
+		{
+			name: "some empty",
+			puppyMap: map[int]*Puppy{
+				1: &puppy1,
+				2: nil,
+				3: &puppy3,
+			},
+			wantMap: map[*Puppy][]int{
+				&puppy1: {1},
+				nil:     {2},
+				&puppy3: {3},
+			},
+		},
+		{
+			name:     "some with duplicate values",
+			puppyMap: dupePuppyMap,
+			wantMap: map[*Puppy][]int{
+				&puppy1: {1},
+				&puppy2: {2, 3},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotMap := ToReverseArrayMap(tt.puppyMap)
+			if !reflect.DeepEqual(gotMap, tt.wantMap) {
+				t.Errorf("ToReverseArrayMap() = %v, want %v\t[%v] len %d %d", gotMap, tt.wantMap, tt.name, len(gotMap), len(tt.wantMap))
+			}
+		})
+	}
+}
+
 func TestToBespokeReverseMap(t *testing.T) {
 	type Puppy struct {
 		ID    int

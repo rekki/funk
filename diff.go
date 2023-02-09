@@ -14,6 +14,20 @@ func Diff[A comparable](xs []A, ys []A) []A {
 	return diff
 }
 
+// Intersect returns all xs that are also in ys
+func Intersect[A comparable](xs []A, ys []A) []A {
+	var intersect []A = nil
+	yMap := ToMap(ys, func(y A) A { return y })
+	for _, x := range xs {
+		_, exists := yMap[x]
+		if exists {
+			intersect = append(intersect, x)
+		}
+	}
+
+	return intersect
+}
+
 //IdenticalSets tests whether the size and elements of two sets are identical. Order does not matter
 func IdenticalSets[A comparable](xs []A, ys []A) bool {
 	if len(xs) > len(ys) {

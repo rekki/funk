@@ -34,6 +34,37 @@ func TestDiff(t *testing.T) {
 	}
 }
 
+func TestIntersect(t *testing.T) {
+	type args struct {
+		xs []string
+		ys []string
+	}
+	tests := []struct {
+		name string
+		args args
+		want []string
+	}{
+		{"Intersect works as expected with non empty params",
+			args{[]string{"A", "B", "C"}, []string{"C", "D", "E"}},
+			[]string{"C"}},
+		{"Intersect returns xs when xs are the same as ys",
+			args{[]string{"A", "B", "C"}, []string{"A", "B", "C"}},
+			[]string{"A", "B", "C"}},
+		{"Diff returns nil when ys nil",
+			args{[]string{"A", "B", "C"}, nil}, nil},
+		{"Diff returns nil when xs are nil",
+			args{nil, []string{"C", "D", "E"}}, nil,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := Intersect(tt.args.xs, tt.args.ys); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Intersect() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestIdenticalSets(t *testing.T) {
 	type args struct {
 		xs []string

@@ -1,7 +1,7 @@
 package funk
 
 // Filter a collection by a predicate.
-func Filter[A comparable](items []A, predicate func(A) bool) []A {
+func Filter[A any](items []A, predicate func(A) bool) []A {
 	var out []A
 
 	for _, item := range items {

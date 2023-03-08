@@ -12,3 +12,18 @@ func ToMap[T any, K comparable](input []T, key func(T) K) map[K]T {
 	}
 	return out
 }
+
+// ToArrayMap creates a map from a slice with a key-derivation function
+//Useful where the key may be duplicated
+
+func ToArrayMap[T any, K comparable](input []T, key func(T) K) map[K][]T {
+	out := make(map[K][]T, len(input))
+	for _, item := range input {
+		if values, exist := out[key(item)]; exist {
+			out[key(item)] = append(values, item)
+		} else {
+			out[key(item)] = []T{item}
+		}
+	}
+	return out
+}

@@ -28,7 +28,7 @@ func Intersect[A comparable](xs []A, ys []A) []A {
 	return intersect
 }
 
-//IdenticalSets tests whether the size and elements of two sets are identical. Order does not matter
+// IdenticalSets tests whether the size and elements of two sets are identical. Order does not matter
 func IdenticalSets[A comparable](xs []A, ys []A) bool {
 	if len(xs) > len(ys) {
 		return false

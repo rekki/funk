@@ -4,7 +4,6 @@ package funk
 //
 // The getKey function is called for each element of the slice and the returned key is used to
 // determine the group to which the element belongs.
-//
 func GroupBy[A any, B comparable](from []A, getKey func(A) B) map[B][]A {
 	m := map[B][]A{}
 

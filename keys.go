@@ -19,15 +19,15 @@ func Keys[T any, K comparable](input map[K]T) []K {
 //
 // Usage with string keys:
 //
-//   var people map[string]Person
-//   util.KeysSorted(people, func (a, b string) bool {
-//     return a < b
-//   })
+//	var people map[string]Person
+//	util.KeysSorted(people, func (a, b string) bool {
+//	  return a < b
+//	})
 //
 // Sorting time.Time keys:
 //
-//   var eventsByDate map[time.Time]Event
-//   dates := util.KeysSorted(eventsByDate, time.Time.Before)
+//	var eventsByDate map[time.Time]Event
+//	dates := util.KeysSorted(eventsByDate, time.Time.Before)
 func KeysSorted[T any, K comparable](input map[K]T, less func(K, K) bool) []K {
 	out := Keys(input)
 	sort.SliceStable(out, func(i, j int) bool {

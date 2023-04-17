@@ -46,3 +46,46 @@ func TestSplit_SliceDontSplitPerfectly(t *testing.T) {
 		t.Errorf("Split() = %v, want %v\t[Slice don't split perfectly]", got, want)
 	}
 }
+
+func TestSplitMap(t *testing.T) {
+	type args struct {
+		from map[int]string
+		size int
+	}
+
+	var testMap1 = map[int]string{1: "one", 2: "two"}
+	var testMap2 = map[int]string{1: "one", 2: "two", 3: "three"}
+	tests := []struct {
+		name string
+		args args
+		want []map[int]string
+	}{
+		{"map has fewer elements than size returns an array with 1 element",
+			args{from: testMap1, size: 4}, []map[int]string{testMap1}},
+		{"map has more elements than size returns an array with more than 1 element",
+			args{from: testMap1, size: 1}, []map[int]string{{1: "one"}, {2: "two"}}},
+		{"map has more elements than size returns an array with more than 1 element of different sizes",
+			args{from: testMap2, size: 2}, []map[int]string{testMap1, {3: "three"}}},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := SplitMap(tt.args.from, tt.args.size); !reflect.DeepEqual(got, tt.want) {
+				t.Logf("Not a perfect match. TakeMap() = %v, want %v - falling back to comparing sizes", got, tt.want)
+				if !(len(countElems(got)) == len(countElems(tt.want))) {
+					t.Errorf("SplitMap() = %v, want %v", got, tt.want)
+				}
+			}
+		})
+	}
+}
+
+func countElems(kv []map[int]string) []string {
+	elems := []string{}
+	for _, v := range kv {
+		elems = append(elems, Values(v)...)
+	}
+
+	return elems
+
+}

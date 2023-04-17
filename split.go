@@ -25,3 +25,27 @@ func Split[A any](from []A, size int) [][]A {
 
 	return split
 }
+
+// SplitMap divides a map into multiple subslice of maps of
+// a given maximum size
+func SplitMap[K comparable, V any](from map[K]V, size int) []map[K]V {
+	if len(from) <= size {
+		return []map[K]V{from}
+	}
+
+	splitMaps := []map[K]V{}
+
+	var count = 0
+	subMap := map[K]V{}
+	for k, v := range from {
+		if count == size {
+			splitMaps = append(splitMaps, subMap)
+			subMap = map[K]V{}
+		}
+		subMap[k] = v
+		count++
+	}
+	splitMaps = append(splitMaps, subMap)
+
+	return splitMaps
+}

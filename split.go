@@ -41,6 +41,7 @@ func SplitMap[K comparable, V any](from map[K]V, size int) []map[K]V {
 		if count == size {
 			splitMaps = append(splitMaps, subMap)
 			subMap = map[K]V{}
+			count = 0
 		}
 		subMap[k] = v
 		count++

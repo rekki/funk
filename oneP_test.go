@@ -23,3 +23,27 @@ func TestOneP(t *testing.T) {
 		t.Fatalf("Expected to get %s but got %s", pretty.Sprint(selectedOne), pretty.Sprint(expected))
 	}
 }
+
+func TestOneRef(t *testing.T) {
+	one := 1
+	two := 2
+	three := 3
+	numbers := []*int{&one, &two, &three}
+	expected := &one
+
+	found := OneRef(numbers)
+
+	if !reflect.DeepEqual(found, expected) {
+		t.Fatalf("Expected to get %s but got %s", pretty.Sprint(found), pretty.Sprint(expected))
+	}
+
+	emptyNumbers := []*int{}
+	var expectedEmpty *int
+
+	foundEmpty := OneRef(emptyNumbers)
+
+	if !reflect.DeepEqual(foundEmpty, expectedEmpty) {
+		t.Fatalf("Expected to get %s but got %s", pretty.Sprint(foundEmpty), pretty.Sprint(expectedEmpty))
+	}
+
+}

@@ -35,6 +35,6 @@ func ToReverseArrayMap[K comparable, V comparable](inputMap map[K]V) map[V][]K {
 
 }
 
-func isNil(i interface{}) bool {
+func isNil(i any) bool {
 	return i == nil || reflect.ValueOf(i).IsNil()
 }

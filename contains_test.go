@@ -7,7 +7,6 @@ import (
 )
 
 func TestContains(t *testing.T) {
-
 	numbers := []int{0, 1, 2, 3}
 	doesContain2 := Contains(2, numbers)
 	doesNotContain4 := Contains(4, numbers)

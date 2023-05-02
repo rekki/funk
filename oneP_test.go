@@ -8,11 +8,11 @@ import (
 )
 
 func TestOneP(t *testing.T) {
-
 	numbers := []numberClass{
 		{2, "prime"},
 		{3, "prime"},
-		{5, "prime"}}
+		{5, "prime"},
+	}
 
 	expected := numberClass{5, "prime"}
 	selectedOne := OneP(numbers, func(i numberClass, j numberClass) bool {
@@ -45,5 +45,4 @@ func TestOneRef(t *testing.T) {
 	if !reflect.DeepEqual(foundEmpty, expectedEmpty) {
 		t.Fatalf("Expected to get %s but got %s", pretty.Sprint(foundEmpty), pretty.Sprint(expectedEmpty))
 	}
-
 }

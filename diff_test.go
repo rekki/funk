@@ -15,14 +15,20 @@ func TestDiff(t *testing.T) {
 		args args
 		want []string
 	}{
-		{"Diff works as expected with non empty params",
+		{
+			"Diff works as expected with non empty params",
 			args{[]string{"A", "B", "C"}, []string{"C", "D", "E"}},
-			[]string{"A", "B"}},
-		{"Diff returns xs when ys nil",
+			[]string{"A", "B"},
+		},
+		{
+			"Diff returns xs when ys nil",
 			args{[]string{"A", "B", "C"}, nil},
-			[]string{"A", "B", "C"}},
-		{"Diff returns  nil when xs are nil",
-			args{nil, []string{"C", "D", "E"}}, nil,
+			[]string{"A", "B", "C"},
+		},
+		{
+			"Diff returns  nil when xs are nil",
+			args{nil, []string{"C", "D", "E"}},
+			nil,
 		},
 	}
 	for _, tt := range tests {
@@ -44,16 +50,25 @@ func TestIntersect(t *testing.T) {
 		args args
 		want []string
 	}{
-		{"Intersect works as expected with non empty params",
+		{
+			"Intersect works as expected with non empty params",
 			args{[]string{"A", "B", "C"}, []string{"C", "D", "E"}},
-			[]string{"C"}},
-		{"Intersect returns xs when xs are the same as ys",
+			[]string{"C"},
+		},
+		{
+			"Intersect returns xs when xs are the same as ys",
 			args{[]string{"A", "B", "C"}, []string{"A", "B", "C"}},
-			[]string{"A", "B", "C"}},
-		{"Diff returns nil when ys nil",
-			args{[]string{"A", "B", "C"}, nil}, nil},
-		{"Diff returns nil when xs are nil",
-			args{nil, []string{"C", "D", "E"}}, nil,
+			[]string{"A", "B", "C"},
+		},
+		{
+			"Diff returns nil when ys nil",
+			args{[]string{"A", "B", "C"}, nil},
+			nil,
+		},
+		{
+			"Diff returns nil when xs are nil",
+			args{nil, []string{"C", "D", "E"}},
+			nil,
 		},
 	}
 	for _, tt := range tests {
@@ -75,23 +90,35 @@ func TestIdenticalSets(t *testing.T) {
 		args args
 		want bool
 	}{
-		{"Diff works as expected with identical strings",
+		{
+			"Diff works as expected with identical strings",
 			args{[]string{"A", "B", "C"}, []string{"A", "B", "C"}},
-			true},
-		{"Diff works as expected with identical sets of strings even in deifferent order",
+			true,
+		},
+		{
+			"Diff works as expected with identical sets of strings even in deifferent order",
 			args{[]string{"A", "B", "C"}, []string{"C", "B", "A"}},
-			true},
-		{"Diff returns false with sets of different length",
+			true,
+		},
+		{
+			"Diff returns false with sets of different length",
 			args{[]string{"A", "A,", "B", "C"}, []string{"A", "B", "C"}},
-			false},
-		{"Diff returns false with sets of same length but with different occurrences of each element",
+			false,
+		},
+		{
+			"Diff returns false with sets of same length but with different occurrences of each element",
 			args{[]string{"A", "A,", "B", "C"}, []string{"A", "B", "B", "C"}},
-			false},
-		{"Diff returns xs when ys nil",
+			false,
+		},
+		{
+			"Diff returns xs when ys nil",
 			args{[]string{"A", "B", "C"}, nil},
-			false},
-		{"Diff returns true when xs and ys are nil",
-			args{nil, nil}, true,
+			false,
+		},
+		{
+			"Diff returns true when xs and ys are nil",
+			args{nil, nil},
+			true,
 		},
 	}
 	for _, tt := range tests {

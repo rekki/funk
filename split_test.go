@@ -53,22 +53,34 @@ func TestSplitMap(t *testing.T) {
 		size int
 	}
 
-	var testMap1 = map[int]string{1: "one", 2: "two"}
-	var testMap2 = map[int]string{1: "one", 2: "two", 3: "three"}
-	var testMap3 = map[int]string{1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six", 7: "seven"}
+	testMap1 := map[int]string{1: "one", 2: "two"}
+	testMap2 := map[int]string{1: "one", 2: "two", 3: "three"}
+	testMap3 := map[int]string{1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six", 7: "seven"}
 	tests := []struct {
 		name string
 		args args
 		want []map[int]string
 	}{
-		{"map has fewer elements than size returns an array with 1 element",
-			args{from: testMap1, size: 4}, []map[int]string{testMap1}},
-		{"map has more elements than size returns an array with more than 1 element",
-			args{from: testMap1, size: 1}, []map[int]string{{1: "one"}, {2: "two"}}},
-		{"map has more elements than size returns an array with more than 1 element of different sizes",
-			args{from: testMap2, size: 2}, []map[int]string{testMap1, {3: "three"}}},
-		{"map has more elements than size returns an array with more than 1 element of different sizes",
-			args{from: testMap3, size: 2}, []map[int]string{testMap1, {3: "three", 4: "four"}, {5: "five", 6: "six"}, {7: "seven"}}},
+		{
+			"map has fewer elements than size returns an array with 1 element",
+			args{from: testMap1, size: 4},
+			[]map[int]string{testMap1},
+		},
+		{
+			"map has more elements than size returns an array with more than 1 element",
+			args{from: testMap1, size: 1},
+			[]map[int]string{{1: "one"}, {2: "two"}},
+		},
+		{
+			"map has more elements than size returns an array with more than 1 element of different sizes",
+			args{from: testMap2, size: 2},
+			[]map[int]string{testMap1, {3: "three"}},
+		},
+		{
+			"map has more elements than size returns an array with more than 1 element of different sizes",
+			args{from: testMap3, size: 2},
+			[]map[int]string{testMap1, {3: "three", 4: "four"}, {5: "five", 6: "six"}, {7: "seven"}},
+		},
 	}
 
 	for _, tt := range tests {
@@ -93,5 +105,4 @@ func countElems(kv []map[int]string) []string {
 	}
 
 	return elems
-
 }

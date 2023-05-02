@@ -22,7 +22,6 @@ func ToReverseMap[K comparable, V comparable](inputMap map[K]V) (map[V]K, error)
 
 // ToReverseArrayMap Takes a map and reverses it. If there were repeat values in the original map their respective keys are put in an array
 func ToReverseArrayMap[K comparable, V comparable](inputMap map[K]V) map[V][]K {
-
 	newMap := map[V][]K{}
 	for k, v := range inputMap {
 		if contents, exists := newMap[v]; exists {
@@ -32,7 +31,6 @@ func ToReverseArrayMap[K comparable, V comparable](inputMap map[K]V) map[V][]K {
 		}
 	}
 	return newMap
-
 }
 
 func isNil(i any) bool {

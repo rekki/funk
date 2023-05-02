@@ -8,7 +8,6 @@ import (
 )
 
 func TestPartitionBy(t *testing.T) {
-
 	ints := []int{0, 1, 2, 3, 4}
 
 	expectedL := []int{2, 3, 4}

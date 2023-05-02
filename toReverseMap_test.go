@@ -181,7 +181,6 @@ func TestToBespokeReverseMap(t *testing.T) {
 	}
 
 	double := func(x int) int {
-
 		return x * 2
 	}
 

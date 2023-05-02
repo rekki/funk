@@ -7,7 +7,7 @@ import "strings"
 // creates the desired substring for the (n+1)th iteration to remove)
 func ReplaceAllRecursively(text string, toReplace string, replaceWith string) string {
 	var currentText string = text
-	var strippedText = strings.ReplaceAll(text, toReplace, replaceWith)
+	strippedText := strings.ReplaceAll(text, toReplace, replaceWith)
 	for len(strippedText) < len(currentText) {
 		currentText = strippedText
 		strippedText = strings.ReplaceAll(strippedText, toReplace, replaceWith)

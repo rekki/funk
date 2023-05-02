@@ -8,10 +8,9 @@ import (
 )
 
 func TestGetDuplicateStrings(t *testing.T) {
-
 	letters := []string{"a", "b", "b", "c", "c", "c"}
 
-	var expected = map[string]int{
+	expected := map[string]int{
 		"b": 1,
 		"c": 2,
 	}

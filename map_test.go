@@ -41,7 +41,6 @@ func TestMap_withNonPrimitives(t *testing.T) {
 }
 
 func TestMap_fromNilSlice(t *testing.T) {
-
 	var nilInts []int = nil
 	zeroLengthInts := []int{}
 	mappedInts := Map(nilInts, func(num int) int { return num * 2 })
@@ -54,7 +53,6 @@ func TestMap_fromNilSlice(t *testing.T) {
 }
 
 func TestMap_withPrimitives(t *testing.T) {
-
 	nums := []string{"one", "two", "three"}
 	expectedLengths := []int{3, 3, 5}
 
@@ -64,5 +62,4 @@ func TestMap_withPrimitives(t *testing.T) {
 	if !reflect.DeepEqual(lengths, expectedLengths) {
 		t.Fatalf("Mapping %s should have given %s but got %s", pretty.Sprint(nums), pretty.Sprint(expectedLengths), pretty.Sprint(lengths))
 	}
-
 }

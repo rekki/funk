@@ -35,7 +35,7 @@ func SplitMap[K comparable, V any](from map[K]V, size int) []map[K]V {
 
 	splitMaps := []map[K]V{}
 
-	var count = 0
+	count := 0
 	subMap := map[K]V{}
 	for k, v := range from {
 		if count == size {

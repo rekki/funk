@@ -9,7 +9,6 @@ import (
 )
 
 func TestUniqueByStrings(t *testing.T) {
-
 	identity := func(s string) string {
 		return s
 	}

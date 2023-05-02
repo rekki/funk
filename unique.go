@@ -14,9 +14,8 @@ func Unique[A comparable](items []A) []A {
 		}
 	}
 	final = make([]A, len(out))
-	//To ensure minimum capacity
+	// To ensure minimum capacity
 	copy(final, out)
 
 	return final
-
 }

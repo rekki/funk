@@ -20,5 +20,4 @@ func GetDuplicates[A comparable](items []A) map[A]int {
 	}
 
 	return duplicates
-
 }

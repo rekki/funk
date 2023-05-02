@@ -8,7 +8,6 @@ import (
 )
 
 func TestFilter(t *testing.T) {
-
 	ints := []int{0, 1, 2, 3, 4}
 
 	expected := []int{2, 3, 4}

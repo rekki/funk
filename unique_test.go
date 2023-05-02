@@ -9,7 +9,6 @@ import (
 )
 
 func TestUniqueStrings(t *testing.T) {
-
 	letters := []string{"a", "b", "b", "c", "c", "c"}
 
 	expected := [3]string{"a", "b", "c"}

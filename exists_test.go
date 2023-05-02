@@ -7,13 +7,13 @@ import (
 )
 
 func TestExists(t *testing.T) {
-
 	numbers := []numberClass{
 		{0, "N/A"},
 		{1, "N/A"},
 		{2, "prime"},
 		{3, "prime"},
-		{4, "semi-prime"}}
+		{4, "semi-prime"},
+	}
 
 	containsSemiPrimes := Exists(numbers, func(number numberClass) bool {
 		return number.label == "semi-prime"

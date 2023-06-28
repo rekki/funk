@@ -13,6 +13,15 @@ func ToMap[T any, K comparable](input []T, key func(T) K) map[K]T {
 	return out
 }
 
+// ToMapWithIndex is like ToMap but the index of the underlying slice is accessible for use in the key derivation function
+func ToMapWithIndex[T any, K comparable](input []T, key func(int, T) K) map[K]T {
+	out := make(map[K]T, len(input))
+	for i, item := range input {
+		out[key(i, item)] = item
+	}
+	return out
+}
+
 // ToArrayMap creates a map from a slice with a key-derivation function
 // Useful where the key may be duplicated
 func ToArrayMap[T any, K comparable](input []T, key func(T) K) map[K][]T {

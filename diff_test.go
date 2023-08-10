@@ -80,6 +80,107 @@ func TestIntersect(t *testing.T) {
 	}
 }
 
+func TestIntersectKeyMap(t *testing.T) {
+	type args struct {
+		m1 map[string]string
+		m2 map[string]string
+	}
+	tests := []struct {
+		name string
+		args args
+		want map[string]string
+	}{
+		{
+			name: "return empty map with no shared keys",
+			args: args{
+				map[string]string{
+					"a": "A",
+					"b": "B",
+					"c": "C",
+				},
+				map[string]string{
+					"d": "D",
+					"e": "E",
+					"f": "F",
+				},
+			},
+			want: map[string]string{},
+		},
+		{
+			name: "works as expected with some shared keys",
+			args: args{
+				map[string]string{
+					"a": "A",
+					"b": "B",
+					"c": "C",
+				},
+				map[string]string{
+					"d": "D",
+					"e": "E",
+					"b": "B",
+					"c": "C",
+					"f": "F",
+				},
+			},
+			want: map[string]string{
+				"b": "B",
+				"c": "C",
+			},
+		},
+		{
+			name: "Intersect returns same as m1 if map are identical",
+			args: args{
+				map[string]string{
+					"a": "A",
+					"b": "B",
+					"c": "C",
+				},
+				map[string]string{
+					"a": "A",
+					"b": "B",
+					"c": "C",
+				},
+			},
+			want: map[string]string{
+				"a": "A",
+				"b": "B",
+				"c": "C",
+			},
+		},
+		{
+			name: "returns empty map when m2 is nil",
+			args: args{
+				map[string]string{
+					"a": "A",
+					"b": "B",
+					"c": "C",
+				},
+				nil,
+			},
+			want: map[string]string{},
+		},
+		{
+			name: "returns empty map when m1 is nil",
+			args: args{
+				nil,
+				map[string]string{
+					"a": "A",
+					"b": "B",
+					"c": "C",
+				},
+			},
+			want: map[string]string{},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := IntersectKeyMap(tt.args.m1, tt.args.m2); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("IntersectKeyMap() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestIdenticalSets(t *testing.T) {
 	type args struct {
 		xs []string

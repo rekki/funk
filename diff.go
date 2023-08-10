@@ -28,6 +28,18 @@ func Intersect[A comparable](xs []A, ys []A) []A {
 	return intersect
 }
 
+func IntersectKeyMap[T comparable, K comparable](m1 map[K]T, m2 map[K]T) map[K]T {
+	intersect := map[K]T{}
+
+	for k, v := range m1 {
+		if _, exist := m2[k]; exist {
+			intersect[k] = v
+		}
+	}
+
+	return intersect
+}
+
 // IdenticalSets tests whether the size and elements of two sets are identical. Order does not matter
 func IdenticalSets[A comparable](xs []A, ys []A) bool {
 	if len(xs) > len(ys) {

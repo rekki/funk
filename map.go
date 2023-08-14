@@ -11,7 +11,7 @@ func Map[A any, From any](from []From, mapper func(From) A) []A {
 	return out
 }
 
-// Map returns a slice of values applying the mapper function to each element
+// MapWithIndex returns a slice of values applying the mapper function to each element
 func MapWithIndex[A any, From any](from []From, mapper func(From, int) A) []A {
 	out := make([]A, len(from))
 

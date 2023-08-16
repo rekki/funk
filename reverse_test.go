@@ -24,7 +24,7 @@ func Test_Reverse(t *testing.T) {
 		{
 			name: "reverse slice with unordered elements",
 			xs:   []int{123, 23, 4444, 0},
-			want: []int{0, 43444, 23, 123},
+			want: []int{0, 4444, 23, 123},
 		},
 	}
 

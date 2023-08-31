@@ -28,6 +28,8 @@ func Intersect[A comparable](xs []A, ys []A) []A {
 	return intersect
 }
 
+// IntersectKeyMap returns the sub map of m1 whose keys are present in m2.
+// No guarantee is made about the values of m2 matching those of m1
 func IntersectKeyMap[T comparable, K comparable](m1 map[K]T, m2 map[K]T) map[K]T {
 	intersect := map[K]T{}
 

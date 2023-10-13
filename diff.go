@@ -14,6 +14,20 @@ func Diff[A comparable](xs []A, ys []A) []A {
 	return diff
 }
 
+// Remove removes all ys from xs. Unlike Diff, it will return an empty list if the result is empty.
+func Remove[A comparable](xs []A, ys []A) []A {
+	var diff []A = []A{}
+	yMap := ToMap(ys, func(y A) A { return y })
+	for _, x := range xs {
+		_, exists := yMap[x]
+		if !exists {
+			diff = append(diff, x)
+		}
+	}
+
+	return diff
+}
+
 // Intersect returns all xs that are also in ys
 func Intersect[A comparable](xs []A, ys []A) []A {
 	var intersect []A = nil

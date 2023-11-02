@@ -13,7 +13,7 @@ import (
 // this lives here because i don't immediately see a need for it and i think it's too apt to become
 // yet another way for us to produce panics. if it's useful it can be trivially moved out of
 // _test.go.
-func Unbox[T any](xs ...interface{}) []T {
+func Unbox[T any](xs ...any) []T {
 	return Map(xs, func(x any) T { return x.(T) })
 }
 

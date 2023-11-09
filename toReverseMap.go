@@ -1,18 +1,22 @@
 package funk
 
 import (
-	"reflect"
-
 	"github.com/rekki/go/pkg/rekki/errors"
+	"github.com/rekki/go/pkg/rekki/log"
 )
 
+// ToReverseMap Takes a map and reverse it. Errors if the values are not unique
+// Use ToReverseArrayMap if duplicate values are expected
 func ToReverseMap[K comparable, V comparable](inputMap map[K]V) (map[V]K, error) {
 	values := Values(inputMap)
+	log.Print(values)
 	if len(Unique(values)) < len(values) {
 		err := errors.New("Input Map has repeated values")
 		return nil, err
 	}
-	oldKeys := Filter(Keys(inputMap), func(key K) bool { return !isNil(inputMap[key]) })
+	oldKeys := Keys(inputMap)
+	//oldKeys := Filter(Keys(inputMap), func(key K) bool { return !isNil(inputMap[key]) })
+	log.Printf("OldKeys - %v", oldKeys)
 	getValueFromKey := func(key K) K { return key }
 	getKeyFromValue := func(key K) V { return inputMap[key] }
 
@@ -33,6 +37,12 @@ func ToReverseArrayMap[K comparable, V comparable](inputMap map[K]V) map[V][]K {
 	return newMap
 }
 
-func isNil(i any) bool {
-	return i == nil || reflect.ValueOf(i).IsNil()
-}
+//func isNil(i any) bool {
+//
+//	switch i.(type) {
+//	case string:
+//		return true
+//	default:
+//		return i == nil || reflect.ValueOf(i).IsNil()
+//	}
+//}

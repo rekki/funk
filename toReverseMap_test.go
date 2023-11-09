@@ -63,6 +63,7 @@ func TestToReverseMap(t *testing.T) {
 			wantMap: map[*Puppy]int{
 				&puppy1: 1,
 				&puppy3: 3,
+				nil:     2,
 			},
 			wantErr: nil,
 		},
@@ -240,6 +241,43 @@ func TestToBespokeReverseMap(t *testing.T) {
 				}
 			} else if !reflect.DeepEqual(gotMap, tt.wantMap) {
 				t.Errorf("ToReverseMap() = %v, want %v\t[%v] len %d %d", gotMap, tt.wantMap, tt.name, len(gotMap), len(tt.wantMap))
+			}
+		})
+	}
+}
+
+func TestToReverseMap1(t *testing.T) {
+	type args struct {
+		inputMap map[int]string
+	}
+	testMap := map[int]string{
+		1: "one",
+		2: "two",
+		3: "three",
+	}
+	wantMap := map[string]int{
+		"one":   1,
+		"two":   2,
+		"three": 3,
+	}
+
+	tests := []struct {
+		name    string
+		args    args
+		want    map[string]int
+		wantErr bool
+	}{
+		{"Strings to int ", args{testMap}, wantMap, false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := ToReverseMap(tt.args.inputMap)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("ToReverseMap() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("ToReverseMap() got = %v, want %v", got, tt.want)
 			}
 		})
 	}

@@ -1,6 +1,7 @@
 package funk
 
 // Map returns a slice of values applying the mapper function to each element
+// NB mapping nil gives an empty slice
 func Map[A any, From any](from []From, mapper func(From) A) []A {
 	out := make([]A, len(from))
 

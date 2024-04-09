@@ -2,6 +2,9 @@ package funk
 
 // Range returns a slice of the given slice from start to end.
 func Range[A any](xs []A, start int, end int) []A {
+	if len(xs) == 0 {
+		return []A{}
+	}
 	if start < 0 {
 		start = 0
 	}

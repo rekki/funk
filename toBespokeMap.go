@@ -15,7 +15,10 @@ func ToMapBespoke[T any, K comparable, V any](input []T, key func(T) K, value fu
 	return out
 }
 
-func ToBespokeReverseMap[K comparable, V any, T comparable](inputMap map[K]V, getNewKey func(V) T) (map[T]K, error) {
+func ToBespokeReverseMap[K comparable, V any, T comparable](
+	inputMap map[K]V,
+	getNewKey func(V) T,
+) (map[T]K, error) {
 	values := Map(Values(inputMap), getNewKey)
 	if len(Unique(values)) < len(values) {
 		err := errors.New("Input Map has repeated values")
@@ -27,4 +30,15 @@ func ToBespokeReverseMap[K comparable, V any, T comparable](inputMap map[K]V, ge
 
 	reverseMap := ToMapBespoke(keys, getKeyFromMappedValue, getValueFromKey)
 	return reverseMap, nil
+}
+
+// ToMapBespoke2 creates a slice from a map with a key-derivation and a value-derivation function
+// I find this as a nicer prototype than ToMapBespoke
+func ToMapBespoke2[T any, K comparable, V any](input []T, mapper func(T) (K, V)) map[K]V {
+	out := make(map[K]V, len(input))
+	for _, item := range input {
+		key, value := mapper(item)
+		out[key] = value
+	}
+	return out
 }

@@ -32,9 +32,9 @@ func ToBespokeReverseMap[K comparable, V any, T comparable](
 	return reverseMap, nil
 }
 
-// ToMapBespoke2 creates a slice from a map with a key-derivation and a value-derivation function
+// ToMap2 creates a slice from a map with a key-derivation and a value-derivation function
 // I find this as a nicer prototype than ToMapBespoke
-func ToMapBespoke2[T any, K comparable, V any](input []T, mapper func(T) (K, V)) map[K]V {
+func ToMap2[T any, K comparable, V any](input []T, mapper func(T) (K, V)) map[K]V {
 	out := make(map[K]V, len(input))
 	for _, item := range input {
 		key, value := mapper(item)

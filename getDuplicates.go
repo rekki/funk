@@ -1,7 +1,6 @@
 package funk
 
-// GetDuplicates returns a new slice with all duplicate values removed
-// is stable, meaning the order of the elements is preserved
+// GetDuplicates returns a map of items that are duplicated in the input slice and the number of times they are duplicated
 func GetDuplicates[A comparable](items []A) map[A]int {
 	duplicates := map[A]int{}
 

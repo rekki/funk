@@ -1,7 +1,11 @@
 package funk
 
 // MapThenGroupBy groups elements of a slice by a key calculated by the given getKey function.
-func MapThenGroupBy[A any, B comparable, C any](from []A, getKey func(A) B, mapFn func(A) C) map[B][]C {
+func MapThenGroupBy[A any, B comparable, C any](
+	from []A,
+	getKey func(A) B,
+	mapFn func(A) C,
+) map[B][]C {
 	m := map[B][]C{}
 
 	for _, item := range from {

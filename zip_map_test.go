@@ -12,7 +12,11 @@ func TestZipMap(t *testing.T) {
 		expected map[string]int
 	}{
 		{[]string{"a", "b", "c"}, []int{1, 2, 3}, map[string]int{"a": 1, "b": 2, "c": 3}},
-		{[]string{"a", "b", "c", "d"}, []int{1, 2, 3}, map[string]int{"a": 1, "b": 2, "c": 3, "d": 0}},
+		{
+			[]string{"a", "b", "c", "d"},
+			[]int{1, 2, 3},
+			map[string]int{"a": 1, "b": 2, "c": 3, "d": 0},
+		},
 		{[]string{"a"}, []int{1, 2, 3}, map[string]int{"a": 1}},
 	}
 

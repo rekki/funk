@@ -159,7 +159,14 @@ func TestToReverseArrayMap(t *testing.T) {
 			if !reflect.DeepEqual(gotMap, tt.wantMap) {
 				for key := range gotMap {
 					if !IdenticalSets(tt.wantMap[key], gotMap[key]) {
-						t.Errorf("ToReverseArrayMap() = %v, want %v\t[%v] len %d %d", gotMap, tt.wantMap, tt.name, len(gotMap), len(tt.wantMap))
+						t.Errorf(
+							"ToReverseArrayMap() = %v, want %v\t[%v] len %d %d",
+							gotMap,
+							tt.wantMap,
+							tt.name,
+							len(gotMap),
+							len(tt.wantMap),
+						)
 					}
 				}
 			}

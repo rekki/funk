@@ -37,7 +37,11 @@ func TestGroupBy(t *testing.T) {
 
 	testNumbers := func(expectedNumbers []numberClass, numberType string) {
 		if !reflect.DeepEqual(expectedNumbers, numberMap[numberType]) {
-			t.Fatalf("Expected to get %s but got %s", pretty.Sprint(expectedNumbers), pretty.Sprint(numberMap[numberType]))
+			t.Fatalf(
+				"Expected to get %s but got %s",
+				pretty.Sprint(expectedNumbers),
+				pretty.Sprint(numberMap[numberType]),
+			)
 		}
 	}
 

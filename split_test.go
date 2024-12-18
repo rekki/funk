@@ -55,7 +55,15 @@ func TestSplitMap(t *testing.T) {
 
 	testMap1 := map[int]string{1: "one", 2: "two"}
 	testMap2 := map[int]string{1: "one", 2: "two", 3: "three"}
-	testMap3 := map[int]string{1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six", 7: "seven"}
+	testMap3 := map[int]string{
+		1: "one",
+		2: "two",
+		3: "three",
+		4: "four",
+		5: "five",
+		6: "six",
+		7: "seven",
+	}
 	tests := []struct {
 		name string
 		args args
@@ -79,19 +87,40 @@ func TestSplitMap(t *testing.T) {
 		{
 			"map has more elements than size returns an array with more than 1 element of different sizes",
 			args{from: testMap3, size: 2},
-			[]map[int]string{testMap1, {3: "three", 4: "four"}, {5: "five", 6: "six"}, {7: "seven"}},
+			[]map[int]string{
+				testMap1,
+				{3: "three", 4: "four"},
+				{5: "five", 6: "six"},
+				{7: "seven"},
+			},
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := SplitMap(tt.args.from, tt.args.size); !reflect.DeepEqual(got, tt.want) {
-				t.Logf("Not a perfect match. TakeMap() = %v, want %v - falling back to comparing sizes", got, tt.want)
+				t.Logf(
+					"Not a perfect match. TakeMap() = %v, want %v - falling back to comparing sizes",
+					got,
+					tt.want,
+				)
 				if !(len(got) == len(tt.want)) {
-					t.Errorf("SplitMap() = %v, want %v \n Should have %d sub maps but got %d", got, tt.want, len(tt.want), len(got))
+					t.Errorf(
+						"SplitMap() = %v, want %v \n Should have %d sub maps but got %d",
+						got,
+						tt.want,
+						len(tt.want),
+						len(got),
+					)
 				}
 				if !(len(countElems(got)) == len(countElems(tt.want))) {
-					t.Errorf("SplitMap() = %v, want %v \n Should have %d total elements but got %d", got, tt.want, len(countElems(tt.want)), len(countElems(got)))
+					t.Errorf(
+						"SplitMap() = %v, want %v \n Should have %d total elements but got %d",
+						got,
+						tt.want,
+						len(countElems(tt.want)),
+						len(countElems(got)),
+					)
 				}
 			}
 		})

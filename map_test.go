@@ -60,6 +60,11 @@ func TestMap_withPrimitives(t *testing.T) {
 		return len(word)
 	})
 	if !reflect.DeepEqual(lengths, expectedLengths) {
-		t.Fatalf("Mapping %s should have given %s but got %s", pretty.Sprint(nums), pretty.Sprint(expectedLengths), pretty.Sprint(lengths))
+		t.Fatalf(
+			"Mapping %s should have given %s but got %s",
+			pretty.Sprint(nums),
+			pretty.Sprint(expectedLengths),
+			pretty.Sprint(lengths),
+		)
 	}
 }

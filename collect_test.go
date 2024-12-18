@@ -23,9 +23,17 @@ func TestCollect_withNonPrimitives(t *testing.T) {
 		{o: &UkCities{name: "Wells"}}, // Fewer than 6 characters
 	}
 
-	cityPointers := Collect(twos, func(p *UKCityPointers) bool { return len(p.o.name) > 6 }, func(t *UKCityPointers) UkCities { return *t.o })
+	cityPointers := Collect(
+		twos,
+		func(p *UKCityPointers) bool { return len(p.o.name) > 6 },
+		func(t *UKCityPointers) UkCities { return *t.o },
+	)
 
-	cityNames := Collect(cityPointers, func(c UkCities) bool { return len(c.name) > 6 }, func(t UkCities) string { return t.name })
+	cityNames := Collect(
+		cityPointers,
+		func(c UkCities) bool { return len(c.name) > 6 },
+		func(t UkCities) string { return t.name },
+	)
 
 	if len(cityNames) != len(cityPointers) {
 		t.Fatalf(
@@ -43,7 +51,11 @@ func TestCollect_withNonPrimitives(t *testing.T) {
 func TestCollect_fromNilSlice(t *testing.T) {
 	var nilInts []int = nil
 	zeroLengthInts := []int{}
-	mappedInts := Collect(nilInts, func(num int) bool { return num%2 == 0 }, func(num int) int { return num * 2 })
+	mappedInts := Collect(
+		nilInts,
+		func(num int) bool { return num%2 == 0 },
+		func(num int) int { return num * 2 },
+	)
 
 	if !reflect.DeepEqual(mappedInts, zeroLengthInts) {
 		t.Fatalf(
@@ -61,6 +73,11 @@ func TestCollect_withPrimitives(t *testing.T) {
 		func(word string) int { return len(word) })         // return their lengths
 
 	if !reflect.DeepEqual(lengths, expectedLengths) {
-		t.Fatalf("Collecting %s should have given %s but got %s", pretty.Sprint(nums), pretty.Sprint(expectedLengths), pretty.Sprint(lengths))
+		t.Fatalf(
+			"Collecting %s should have given %s but got %s",
+			pretty.Sprint(nums),
+			pretty.Sprint(expectedLengths),
+			pretty.Sprint(lengths),
+		)
 	}
 }

@@ -17,9 +17,17 @@ func TestPartitionBy(t *testing.T) {
 	})
 
 	if !reflect.DeepEqual(expectedL, partitionByL) {
-		t.Fatalf("Expected to get %s but got %s", pretty.Sprint(expectedL), pretty.Sprint(partitionByL))
+		t.Fatalf(
+			"Expected to get %s but got %s",
+			pretty.Sprint(expectedL),
+			pretty.Sprint(partitionByL),
+		)
 	}
 	if !reflect.DeepEqual(expectedR, partitionByR) {
-		t.Fatalf("Expected to get %s but got %s", pretty.Sprint(expectedR), pretty.Sprint(partitionByR))
+		t.Fatalf(
+			"Expected to get %s but got %s",
+			pretty.Sprint(expectedR),
+			pretty.Sprint(partitionByR),
+		)
 	}
 }

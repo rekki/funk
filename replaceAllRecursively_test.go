@@ -13,9 +13,21 @@ func TestReplaceAllCopies(t *testing.T) {
 		args args
 		want string
 	}{
-		{"replace all copies for a single instance", args{"finished finickety", "fini", ""}, "shed ckety"},
-		{"replace all copies for a single instance", args{"fifininished fifininickety", "fini", ""}, "shed ckety"},
-		{"replace all multiple spaces with a single space", args{"a  b  c       d e", "  ", " "}, "a b c d e"},
+		{
+			"replace all copies for a single instance",
+			args{"finished finickety", "fini", ""},
+			"shed ckety",
+		},
+		{
+			"replace all copies for a single instance",
+			args{"fifininished fifininickety", "fini", ""},
+			"shed ckety",
+		},
+		{
+			"replace all multiple spaces with a single space",
+			args{"a  b  c       d e", "  ", " "},
+			"a b c d e",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

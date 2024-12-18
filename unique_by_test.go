@@ -21,7 +21,11 @@ func TestUniqueByStrings(t *testing.T) {
 	slices.Sort(got)
 	t.Logf("got: %s , expected %s", pretty.Sprint(got), pretty.Sprint(expected))
 	if cap(expected) != cap(got) {
-		t.Fatalf("Expected to have same capacity of %v but got capacity %v", cap(expected), cap(got))
+		t.Fatalf(
+			"Expected to have same capacity of %v but got capacity %v",
+			cap(expected),
+			cap(got),
+		)
 	}
 	if len(expected) != len(got) {
 		t.Fatalf("Expected to have same length of %v but got length %v", len(expected), len(got))
@@ -61,7 +65,11 @@ func TestUniqueByStructs(t *testing.T) {
 	t.Logf("got: %s , expected %s", pretty.Sprint(got), pretty.Sprint(expected))
 
 	if cap(expected) != cap(got) {
-		t.Fatalf("Expected to have same capacity of %v but got capacity %v", cap(expected), cap(got))
+		t.Fatalf(
+			"Expected to have same capacity of %v but got capacity %v",
+			cap(expected),
+			cap(got),
+		)
 	}
 
 	if len(got) != len(expected) {
@@ -70,7 +78,12 @@ func TestUniqueByStructs(t *testing.T) {
 
 	for idx := range got {
 		if got[idx] != expected[idx] {
-			t.Errorf("Element idx = %d doesn't match %s vs %s", idx, got[idx].name, expected[idx].name)
+			t.Errorf(
+				"Element idx = %d doesn't match %s vs %s",
+				idx,
+				got[idx].name,
+				expected[idx].name,
+			)
 		}
 	}
 }

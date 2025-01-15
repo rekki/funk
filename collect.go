@@ -12,3 +12,14 @@ func Collect[A any, From any](from []From, filter func(From) bool, mapper func(F
 	}
 	return out
 }
+
+func Collect2[A any, From any](from []From, filter func(From) (bool, A)) []A {
+	out := make([]A, 0, len(from))
+
+	for _, item := range from {
+		if passed, mappedValue := filter(item); passed {
+			out = append(out, mappedValue)
+		}
+	}
+	return out
+}

@@ -5,13 +5,16 @@ func OneP[A any](from []A, replace func(A, A) bool) A {
 	if len(from) < 1 {
 		panic("Cannot perform OneP on an empty array")
 	}
-	max := from[0]
+	if len(from) == 1 {
+		return from[0]
+	}
+	best := from[0]
 	for _, next := range from {
-		if replace(max, next) {
-			max = next
+		if replace(best, next) {
+			best = next
 		}
 	}
-	return max
+	return best
 }
 
 // OneOrNil returns the pointer to an item in the list that is the most extreme in some way or else Nil

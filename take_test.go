@@ -52,3 +52,27 @@ func TestTake(t *testing.T) {
 		})
 	}
 }
+
+func TestTakeString(t *testing.T) {
+	type args struct {
+		s     string
+		count int
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{"count less than length", args{"abcd", 3}, "abc"},
+		{"count greater than length", args{"abc", 4}, "abc"},
+		{"count less than or equal to zero", args{"abc", 0}, ""},
+		{"string is empty", args{"", 3}, ""},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := TakeString(tt.args.s, tt.args.count); got != tt.want {
+				t.Errorf("TakeString() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

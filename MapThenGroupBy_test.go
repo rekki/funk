@@ -30,7 +30,11 @@ func TestMapThenGroupBy(t *testing.T) {
 		}}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := MapThenGroupBy(tt.args.from, tt.args.getKey, tt.args.mapFn); !reflect.DeepEqual(
+			if got := MapThenGroupBy(
+				tt.args.from,
+				tt.args.getKey,
+				tt.args.mapFn,
+			); !reflect.DeepEqual(
 				got,
 				tt.want,
 			) {

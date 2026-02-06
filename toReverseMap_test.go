@@ -82,7 +82,14 @@ func TestToReverseMap(t *testing.T) {
 					t.Errorf("Expected Err %s, Got Error %s", tt.wantErr, gotErr)
 				}
 			} else if !reflect.DeepEqual(gotMap, tt.wantMap) {
-				t.Errorf("ToReverseMap() = %v, want %v\t[%v] len %d %d", gotMap, tt.wantMap, tt.name, len(gotMap), len(tt.wantMap))
+				t.Errorf(
+					"ToReverseMap() = %v, want %v\t[%v] len %d %d",
+					gotMap,
+					tt.wantMap,
+					tt.name,
+					len(gotMap),
+					len(tt.wantMap),
+				)
 			}
 		})
 	}
@@ -247,7 +254,14 @@ func TestToBespokeReverseMap(t *testing.T) {
 					t.Errorf("Expected Err %s, Got Error %s", tt.wantErr, gotErr)
 				}
 			} else if !reflect.DeepEqual(gotMap, tt.wantMap) {
-				t.Errorf("ToReverseMap() = %v, want %v\t[%v] len %d %d", gotMap, tt.wantMap, tt.name, len(gotMap), len(tt.wantMap))
+				t.Errorf(
+					"ToReverseMap() = %v, want %v\t[%v] len %d %d",
+					gotMap,
+					tt.wantMap,
+					tt.name,
+					len(gotMap),
+					len(tt.wantMap),
+				)
 			}
 		})
 	}

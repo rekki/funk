@@ -31,7 +31,11 @@ func TestReplaceAllCopies(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := ReplaceAllRecursively(tt.args.text, tt.args.toReplace, tt.args.replaceWith); got != tt.want {
+			if got := ReplaceAllRecursively(
+				tt.args.text,
+				tt.args.toReplace,
+				tt.args.replaceWith,
+			); got != tt.want {
 				t.Errorf("ReplaceAllRecursively() = %v, want %v", got, tt.want)
 			}
 		})

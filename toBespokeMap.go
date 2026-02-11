@@ -1,6 +1,11 @@
 package funk
 
-import "github.com/rekki/go/pkg/rekki/errors"
+import (
+	"maps"
+	"slices"
+
+	"github.com/rekki/go/pkg/rekki/errors"
+)
 
 // ToMapBespoke creates a map from a slice with a key-derivation and a value-derivation function
 //
@@ -19,12 +24,12 @@ func ToBespokeReverseMap[K comparable, V any, T comparable](
 	inputMap map[K]V,
 	getNewKey func(V) T,
 ) (map[T]K, error) {
-	values := Map(Values(inputMap), getNewKey)
+	values := Map(slices.Collect(maps.Values(inputMap)), getNewKey)
 	if len(Unique(values)) < len(values) {
 		err := errors.New("Input Map has repeated values")
 		return nil, err
 	}
-	keys := Keys(inputMap)
+	keys := slices.Collect(maps.Keys(inputMap))
 	getValueFromKey := func(key K) K { return key }
 	getKeyFromMappedValue := func(key K) T { return getNewKey(inputMap[key]) }
 

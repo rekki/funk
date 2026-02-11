@@ -4,8 +4,9 @@ import (
 	"reflect"
 	"testing"
 
+	"slices"
+
 	"github.com/kr/pretty"
-	"golang.org/x/exp/slices"
 )
 
 func TestUniqueByStrings(t *testing.T) {

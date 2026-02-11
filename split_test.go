@@ -1,7 +1,9 @@
 package funk
 
 import (
+	"maps"
 	"reflect"
+	"slices"
 	"testing"
 )
 
@@ -130,7 +132,7 @@ func TestSplitMap(t *testing.T) {
 func countElems(kv []map[int]string) []string {
 	elems := []string{}
 	for _, v := range kv {
-		elems = append(elems, Values(v)...)
+		elems = append(elems, slices.Collect(maps.Values(v))...)
 	}
 
 	return elems

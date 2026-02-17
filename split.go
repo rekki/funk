@@ -15,10 +15,7 @@ func Split[A any](from []A, size int) [][]A {
 	}
 
 	for i := 0; i < chunksCount; i++ {
-		limit := size + i*size
-		if limit > len(from) {
-			limit = len(from)
-		}
+		limit := min(size+i*size, len(from))
 
 		split = append(split, from[i*size:limit])
 	}

@@ -4,6 +4,8 @@ package funk
 // Generally useful for coercing constants, literals and function return values to pointers. Notably
 // it is not equivalent to & in the general case, because a pointer to the space allocated for the
 // passed parameter is returned.
+//
+//go:fix inline
 func Pointerify[A any](a A) *A {
-	return &a
+	return new(a)
 }

@@ -30,5 +30,5 @@ func TestBoxRoundTrip(t *testing.T) {
 	rt(t, []string{"ernie", "burt", "oscar the grouch"})
 	rt(t, []struct{ x int }{{1}, {2}, {3}})
 	rt(t, []error{errors.New("foo"), errors.New("bar")}) // works with interface types too
-	rt(t, []*int{Pointerify(1), Pointerify(2)})
+	rt(t, []*int{new(1), new(2)})
 }

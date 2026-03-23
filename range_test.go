@@ -55,6 +55,20 @@ func TestRange(t *testing.T) {
 			end:   2,
 			want:  []int{2},
 		},
+		{
+			name:  "from second till second last",
+			xs:    []int{1, 2, 3, 4, 5},
+			start: 1,
+			end:   -1,
+			want:  []int{2, 3, 4},
+		},
+		{
+			name:  "from second till second last only two elements",
+			xs:    []int{1, 2, 3},
+			start: 1,
+			end:   -1,
+			want:  []int{2},
+		},
 	}
 
 	for _, tt := range tests {

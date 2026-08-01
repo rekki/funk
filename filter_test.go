@@ -20,8 +20,9 @@ func TestFilter(t *testing.T) {
 }
 
 func TestFilterMap(t *testing.T) {
+	letterFor := map[int]string{1: "a", 2: "b", 3: "c"}
 	got := FilterMap([]int{1, 2, 3}, func(value int) (string, bool) {
-		return string(rune('a' + value - 1)), value%2 == 1
+		return letterFor[value], value%2 == 1
 	})
 	want := []string{"a", "c"}
 	if !slices.Equal(got, want) {

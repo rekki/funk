@@ -6,6 +6,10 @@ import (
 )
 
 func TestUniquePreservesFirstOccurrenceOrder(t *testing.T) {
+	if got := Unique([]string(nil)); got == nil {
+		t.Fatal("Unique(nil) returned nil")
+	}
+
 	got := Unique([]string{"b", "a", "b", "c", "a"})
 	want := []string{"b", "a", "c"}
 	if !slices.Equal(got, want) {

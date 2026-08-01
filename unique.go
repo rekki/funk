@@ -1,12 +1,12 @@
 package funk
 
-// Unique returns a new slice containing each distinct value from items once,
-// preserving first-occurrence order.
-func Unique[A comparable](items []A) []A {
-	result := make([]A, 0)
-	seen := make(map[A]struct{})
+// Unique returns each distinct value from items once, preserving first-
+// occurrence order. It always returns a non-nil slice.
+func Unique[T comparable](items []T) []T {
+	result := make([]T, 0, len(items))
+	seen := make(map[T]struct{}, len(items))
 	for _, item := range items {
-		if _, ok := seen[item]; ok {
+		if _, exists := seen[item]; exists {
 			continue
 		}
 		seen[item] = struct{}{}

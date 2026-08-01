@@ -8,17 +8,17 @@ import (
 func TestSetZeroValueAndMutations(t *testing.T) {
 	var set Set[int]
 	set.Add(2)
-	set.AddMulti(1, 2, 3)
-	if !set.Has(2) || set.Size() != 3 {
-		t.Fatalf("set = %v (size %d), want values 1, 2, 3", set.Values(), set.Size())
+	set.AddAll(1, 2, 3)
+	if !set.Contains(2) || set.Len() != 3 {
+		t.Fatalf("set = %v (len %d), want values 1, 2, 3", set.Values(), set.Len())
 	}
 	set.Remove(2)
-	if set.Has(2) || set.Size() != 2 {
+	if set.Contains(2) || set.Len() != 2 {
 		t.Fatalf("set after Remove = %v", set.Values())
 	}
 	set.Clear()
-	if set.Size() != 0 {
-		t.Fatalf("set size after Clear = %d, want 0", set.Size())
+	if set.Len() != 0 {
+		t.Fatalf("set len after Clear = %d, want 0", set.Len())
 	}
 }
 
@@ -26,12 +26,13 @@ func TestSetOperations(t *testing.T) {
 	left := NewSet(1, 2, 3)
 	right := NewSet(3, 4)
 
-	assertSetValues(t, left.Filter(func(v int) bool { return v%2 == 1 }), []int{1, 3})
+	assertSetValues(t, left.Filter(func(value int) bool { return value%2 == 1 }), []int{1, 3})
 	assertSetValues(t, left.Union(right), []int{1, 2, 3, 4})
 	assertSetValues(t, left.Intersect(right), []int{3})
+	assertSetValues(t, right.Intersect(left), []int{3})
 	assertSetValues(t, left.Difference(right), []int{1, 2})
 
-	if left.Size() != 3 || right.Size() != 2 {
+	if left.Len() != 3 || right.Len() != 2 {
 		t.Fatal("set operation mutated an input")
 	}
 }

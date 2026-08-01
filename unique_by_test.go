@@ -6,6 +6,10 @@ import (
 )
 
 func TestUniqueByPreservesFirstOccurrenceOrder(t *testing.T) {
+	if got := UniqueBy([]string(nil), func(value string) int { return len(value) }); got == nil {
+		t.Fatal("UniqueBy(nil) returned nil")
+	}
+
 	got := UniqueBy([]string{"b", "aa", "c", "dd"}, func(value string) int { return len(value) })
 	want := []string{"b", "aa"}
 	if !slices.Equal(got, want) {

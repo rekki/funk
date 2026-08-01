@@ -5,7 +5,13 @@ import (
 	"testing"
 )
 
+type numberClass struct {
+	number int
+	label  string
+}
+
 func TestGroupBy(t *testing.T) {
+	keyCalls := 0
 	numbers, naNumbers, primeNumbers, semiPrimeNumbers := []numberClass{
 		{0, "N/A"},
 		{1, "N/A"},
@@ -30,8 +36,12 @@ func TestGroupBy(t *testing.T) {
 		}
 
 	numberMap := GroupBy(numbers, func(i numberClass) string {
+		keyCalls++
 		return i.label
 	})
+	if keyCalls != len(numbers) {
+		t.Fatalf("GroupBy() called key %d times, want %d", keyCalls, len(numbers))
+	}
 
 	testNumbers := func(expectedNumbers []numberClass, numberType string) {
 		if !reflect.DeepEqual(expectedNumbers, numberMap[numberType]) {

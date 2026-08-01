@@ -23,8 +23,8 @@ func ExampleGroupBy() {
 	// [three]
 }
 
-func ExampleToMap2() {
-	lengths := ToMap2([]string{"one", "three"}, func(value string) (string, int) {
+func ExampleAssociate() {
+	lengths := Associate([]string{"one", "three"}, func(value string) (string, int) {
 		return value, len(value)
 	})
 	fmt.Println(lengths["one"])

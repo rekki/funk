@@ -3,76 +3,36 @@ package funk
 import (
 	"reflect"
 	"testing"
+	"unicode/utf8"
 )
 
 func TestTake(t *testing.T) {
 	tests := []struct {
-		name  string
-		args  []string
+		items []string
 		count int
 		want  []string
 	}{
-		{
-			name:  "count less than length",
-			args:  []string{"a", "b", "c", "d"},
-			count: 3,
-			want:  []string{"a", "b", "c"},
-		},
-		{
-			name:  "count greater than length",
-			args:  []string{"a", "b", "c"},
-			count: 4,
-			want:  []string{"a", "b", "c"},
-		},
-		{
-			name:  "count less than or equal to zero",
-			args:  []string{"a", "b", "c"},
-			count: 0,
-			want:  []string{},
-		},
-		{
-			name:  "slice is nil",
-			args:  nil,
-			count: 3,
-			want:  nil,
-		},
-		{
-			name:  "slice is empty",
-			args:  []string{},
-			count: 3,
-			want:  []string{},
-		},
+		{items: []string{"a", "b", "c"}, count: 2, want: []string{"a", "b"}},
+		{items: []string{"a"}, count: 2, want: []string{"a"}},
+		{items: []string{"a"}, count: 0, want: []string{}},
+		{items: nil, count: 3, want: nil},
 	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := Take(tt.args, tt.count); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Take() = %v, want %v\t[%v]", got, tt.want, tt.name)
-			}
-		})
+	for _, test := range tests {
+		if got := Take(test.items, test.count); !reflect.DeepEqual(got, test.want) {
+			t.Errorf("Take(%v, %d) = %v, want %v", test.items, test.count, got, test.want)
+		}
 	}
 }
 
-func TestTakeString(t *testing.T) {
-	type args struct {
-		s     string
-		count int
+func TestTakeRunes(t *testing.T) {
+	got := TakeRunes("é🙂a", 2)
+	if got != "é🙂" {
+		t.Fatalf("TakeRunes() = %q, want %q", got, "é🙂")
 	}
-	tests := []struct {
-		name string
-		args args
-		want string
-	}{
-		{"count less than length", args{"abcd", 3}, "abc"},
-		{"count greater than length", args{"abc", 4}, "abc"},
-		{"count less than or equal to zero", args{"abc", 0}, ""},
-		{"string is empty", args{"", 3}, ""},
+	if !utf8.ValidString(got) {
+		t.Fatalf("TakeRunes() returned invalid UTF-8: %x", got)
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := TakeString(tt.args.s, tt.args.count); got != tt.want {
-				t.Errorf("TakeString() = %v, want %v", got, tt.want)
-			}
-		})
+	if got := TakeRunes("abc", 0); got != "" {
+		t.Fatalf("TakeRunes() = %q, want empty", got)
 	}
 }

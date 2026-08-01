@@ -1,31 +1,31 @@
 package funk
 
-// Take returns a subslice containing at most the first count elements of xs.
+// Take returns a subslice containing at most the first count elements of items.
 // A non-positive count returns an empty subslice. The result shares storage
-// with xs.
-func Take[A any](xs []A, count int) []A {
+// with items.
+func Take[T any](items []T, count int) []T {
 	if count <= 0 {
-		return xs[:0]
+		return items[:0]
 	}
-	if count >= len(xs) {
-		return xs
+	if count >= len(items) {
+		return items
 	}
-	return xs[:count]
+	return items[:count]
 }
 
-// TakeString returns at most the first count Unicode code points in s. A
+// TakeRunes returns at most the first count Unicode code points in value. A
 // non-positive count returns an empty string.
-func TakeString(s string, count int) string {
+func TakeRunes(value string, count int) string {
 	if count <= 0 {
 		return ""
 	}
 
 	runes := 0
-	for i := range s {
+	for index := range value {
 		if runes == count {
-			return s[:i]
+			return value[:index]
 		}
 		runes++
 	}
-	return s
+	return value
 }

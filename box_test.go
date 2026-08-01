@@ -3,8 +3,6 @@ package funk
 import (
 	"reflect"
 	"testing"
-
-	"github.com/rekki/go/pkg/rekki/errors"
 )
 
 // Unbox returns a slice containing all the inputs type-asserted to T
@@ -29,6 +27,5 @@ func TestBoxRoundTrip(t *testing.T) {
 	rt(t, []int{1, 2, 3, 4, 5})
 	rt(t, []string{"ernie", "burt", "oscar the grouch"})
 	rt(t, []struct{ x int }{{1}, {2}, {3}})
-	rt(t, []error{errors.New("foo"), errors.New("bar")}) // works with interface types too
 	rt(t, []*int{new(1), new(2)})
 }

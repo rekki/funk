@@ -12,20 +12,3 @@ func Take[T any](items []T, count int) []T {
 	}
 	return items[:count]
 }
-
-// TakeRunes returns at most the first count Unicode code points in value. A
-// non-positive count returns an empty string.
-func TakeRunes(value string, count int) string {
-	if count <= 0 {
-		return ""
-	}
-
-	runes := 0
-	for index := range value {
-		if runes == count {
-			return value[:index]
-		}
-		runes++
-	}
-	return value
-}

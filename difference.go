@@ -1,7 +1,7 @@
 package funk
 
 // Difference returns elements of xs that are not present in ys, preserving
-// order and duplicate occurrences. It returns nil when there are no results.
+// order and duplicate occurrences.
 func Difference[T comparable](xs, ys []T) []T {
 	ySet := make(map[T]struct{}, len(ys))
 	for _, y := range ys {
@@ -18,7 +18,7 @@ func Difference[T comparable](xs, ys []T) []T {
 }
 
 // Intersect returns elements of xs that are also present in ys, preserving
-// order and duplicate occurrences. It returns nil when there are no results.
+// order and duplicate occurrences.
 func Intersect[T comparable](xs, ys []T) []T {
 	ySet := make(map[T]struct{}, len(ys))
 	for _, y := range ys {

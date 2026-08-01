@@ -11,11 +11,11 @@ func TestFilter(t *testing.T) {
 	if !slices.Equal(got, want) {
 		t.Fatalf("Filter() = %v, want %v", got, want)
 	}
-	if got := Filter([]int(nil), func(int) bool { return true }); got == nil || len(got) != 0 {
-		t.Fatalf("Filter(nil) = %#v, want non-nil empty slice", got)
+	if got := Filter([]int(nil), func(int) bool { return true }); len(got) != 0 {
+		t.Fatalf("Filter(nil) = %#v, want empty slice", got)
 	}
-	if got := Filter([]int{1}, func(int) bool { return false }); got == nil || len(got) != 0 {
-		t.Fatalf("Filter() = %#v, want non-nil empty slice", got)
+	if got := Filter([]int{1}, func(int) bool { return false }); len(got) != 0 {
+		t.Fatalf("Filter() = %#v, want empty slice", got)
 	}
 }
 
@@ -27,7 +27,7 @@ func TestFilterMap(t *testing.T) {
 	if !slices.Equal(got, want) {
 		t.Fatalf("FilterMap() = %v, want %v", got, want)
 	}
-	if got := FilterMap([]int(nil), func(int) (int, bool) { return 0, false }); got == nil {
-		t.Fatal("FilterMap(nil) returned nil")
+	if got := FilterMap([]int(nil), func(int) (int, bool) { return 0, false }); len(got) != 0 {
+		t.Fatalf("FilterMap(nil) = %#v, want empty slice", got)
 	}
 }

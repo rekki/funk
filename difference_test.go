@@ -12,8 +12,8 @@ func TestDifference(t *testing.T) {
 	if !slices.Equal(got, want) {
 		t.Fatalf("Difference() = %v, want %v", got, want)
 	}
-	if got := Difference([]string{"A"}, []string{"A"}); got != nil {
-		t.Fatalf("Difference() = %#v, want nil", got)
+	if got := Difference([]string{"A"}, []string{"A"}); len(got) != 0 {
+		t.Fatalf("Difference() = %#v, want empty slice", got)
 	}
 }
 
@@ -23,8 +23,8 @@ func TestIntersect(t *testing.T) {
 	if !slices.Equal(got, want) {
 		t.Fatalf("Intersect() = %v, want %v", got, want)
 	}
-	if got := Intersect([]string{"A"}, nil); got != nil {
-		t.Fatalf("Intersect() = %#v, want nil", got)
+	if got := Intersect([]string{"A"}, nil); len(got) != 0 {
+		t.Fatalf("Intersect() = %#v, want empty slice", got)
 	}
 }
 

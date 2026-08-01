@@ -1,8 +1,8 @@
 package funk
 
-// GetDuplicates returns values that occur more than once. Each result count is
-// the number of occurrences after the first.
-func GetDuplicates[T comparable](items []T) map[T]int {
+// DuplicateCounts returns the total occurrence count for each value that
+// appears more than once.
+func DuplicateCounts[T comparable](items []T) map[T]int {
 	counts := make(map[T]int, len(items))
 	for _, item := range items {
 		counts[item]++
@@ -13,7 +13,7 @@ func GetDuplicates[T comparable](items []T) map[T]int {
 			delete(counts, item)
 			continue
 		}
-		counts[item] = count - 1
+		counts[item] = count
 	}
 	return counts
 }

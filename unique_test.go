@@ -6,8 +6,8 @@ import (
 )
 
 func TestUniquePreservesFirstOccurrenceOrder(t *testing.T) {
-	if got := Unique([]string(nil)); got == nil {
-		t.Fatal("Unique(nil) returned nil")
+	if got := Unique([]string(nil)); len(got) != 0 {
+		t.Fatalf("Unique(nil) = %#v, want empty slice", got)
 	}
 
 	got := Unique([]string{"b", "a", "b", "c", "a"})

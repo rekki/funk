@@ -1,11 +1,11 @@
 package funk
 
-// Reduce folds arr from left to right, starting with initialValue.
-func Reduce[A any, B any](arr []A, f func(B, A) B, initialValue B) B {
+// Reduce folds items from left to right, starting with initialValue.
+func Reduce[T, R any](items []T, reducer func(R, T) R, initialValue R) R {
 	acc := initialValue
 
-	for _, item := range arr {
-		acc = f(acc, item)
+	for _, item := range items {
+		acc = reducer(acc, item)
 	}
 
 	return acc

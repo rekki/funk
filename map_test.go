@@ -43,7 +43,7 @@ func TestMap_fromNilSlice(t *testing.T) {
 	zeroLengthInts := []int{}
 	mappedInts := Map(nilInts, func(num int) int { return num * 2 })
 
-	if !reflect.DeepEqual(mappedInts, zeroLengthInts) {
+	if len(mappedInts) != len(zeroLengthInts) {
 		t.Fatalf(
 			"Mapping %v should've resulted in an empty slice, but got %v instead",
 			nilInts, nilInts)

@@ -1,50 +1,56 @@
 package funk
 
-// Diff returns all xs that are not in ys
+// Diff returns elements of xs that are not present in ys, preserving order.
+// It returns nil when there are no such elements.
 func Diff[A comparable](xs []A, ys []A) []A {
-	var diff []A = nil
-	yMap := ToMap(ys, func(y A) A { return y })
+	ySet := make(map[A]struct{}, len(ys))
+	for _, y := range ys {
+		ySet[y] = struct{}{}
+	}
+	var diff []A
 	for _, x := range xs {
-		_, exists := yMap[x]
-		if !exists {
+		if _, exists := ySet[x]; !exists {
 			diff = append(diff, x)
 		}
 	}
-
 	return diff
 }
 
-// Remove removes all ys from xs. Unlike Diff, it will return an empty list if the result is empty.
+// Remove is like Diff but returns a non-nil empty slice when there are no
+// remaining elements.
 func Remove[A comparable](xs []A, ys []A) []A {
-	var diff []A = []A{}
-	yMap := ToMap(ys, func(y A) A { return y })
+	ySet := make(map[A]struct{}, len(ys))
+	for _, y := range ys {
+		ySet[y] = struct{}{}
+	}
+	diff := make([]A, 0)
 	for _, x := range xs {
-		_, exists := yMap[x]
-		if !exists {
+		if _, exists := ySet[x]; !exists {
 			diff = append(diff, x)
 		}
 	}
-
 	return diff
 }
 
-// Intersect returns all xs that are also in ys
+// Intersect returns elements of xs that are also present in ys, preserving
+// order. It returns nil when there are no such elements.
 func Intersect[A comparable](xs []A, ys []A) []A {
-	var intersect []A = nil
-	yMap := ToMap(ys, func(y A) A { return y })
+	ySet := make(map[A]struct{}, len(ys))
+	for _, y := range ys {
+		ySet[y] = struct{}{}
+	}
+	var intersect []A
 	for _, x := range xs {
-		_, exists := yMap[x]
-		if exists {
+		if _, exists := ySet[x]; exists {
 			intersect = append(intersect, x)
 		}
 	}
-
 	return intersect
 }
 
-// IntersectKeyMap returns the sub map of m1 whose keys are present in m2.
-// No guarantee is made about the values of m2 matching those of m1
-func IntersectKeyMap[T comparable, K comparable](m1 map[K]T, m2 map[K]T) map[K]T {
+// IntersectKeyMap returns a new map containing entries from m1 whose keys are
+// also present in m2. Values from m2 are ignored.
+func IntersectKeyMap[T any, K comparable](m1 map[K]T, m2 map[K]T) map[K]T {
 	intersect := map[K]T{}
 
 	for k, v := range m1 {
@@ -56,16 +62,24 @@ func IntersectKeyMap[T comparable, K comparable](m1 map[K]T, m2 map[K]T) map[K]T
 	return intersect
 }
 
-// IdenticalSets tests whether the size and elements of two sets are identical. Order does not matter
+// IdenticalSets reports whether xs and ys contain the same distinct values.
+// Order and duplicate occurrences are ignored.
 func IdenticalSets[A comparable](xs []A, ys []A) bool {
-	if len(xs) > len(ys) {
+	xSet := make(map[A]struct{}, len(xs))
+	for _, x := range xs {
+		xSet[x] = struct{}{}
+	}
+	ySet := make(map[A]struct{}, len(ys))
+	for _, y := range ys {
+		ySet[y] = struct{}{}
+	}
+	if len(xSet) != len(ySet) {
 		return false
 	}
-	if len(Diff(xs, ys)) > 0 {
-		return false
-	}
-	if len(Diff(ys, xs)) > 0 {
-		return false
+	for x := range xSet {
+		if _, ok := ySet[x]; !ok {
+			return false
+		}
 	}
 	return true
 }

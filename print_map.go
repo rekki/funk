@@ -1,14 +1,13 @@
 package funk
 
-import "github.com/kr/pretty"
+import "fmt"
 
-// PrintMap returns a slice of strings that represent key-value pairs from a map. Used for debugging
+// PrintMap formats each key-value pair for debugging. The order of the
+// returned strings is unspecified.
 func PrintMap[T any, K comparable](input map[K]T) []string {
-	out := make([]string, len(input))
-	i := 0
+	out := make([]string, 0, len(input))
 	for key, value := range input {
-		out[i] = "key: " + pretty.Sprint(key) + "; value: " + pretty.Sprint(value)
-		i++
+		out = append(out, fmt.Sprintf("key: %v; value: %v", key, value))
 	}
 	return out
 }

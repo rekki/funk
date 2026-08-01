@@ -1,10 +1,11 @@
 package funk
 
-// ToMap creates a map from a slice with a key-derivation function
+// ToMap creates a map from a slice with a key-derivation function. If multiple
+// elements produce the same key, the last element wins.
 //
-// eg. I have a slice of thing structs that have a field ID and I want a map of id -> thing. then I can do
+// For example, to index Foo values by ID:
 //
-//	thingForID := ToMap(xs, func (foo Foo) string { return foo.ID })
+//	thingForID := ToMap(xs, func(foo Foo) string { return foo.ID })
 func ToMap[T any, K comparable](input []T, key func(T) K) map[K]T {
 	out := make(map[K]T, len(input))
 	for _, item := range input {
@@ -13,7 +14,7 @@ func ToMap[T any, K comparable](input []T, key func(T) K) map[K]T {
 	return out
 }
 
-// ToMapWithIndex is like ToMap but the index of the underlying slice is accessible for use in the key derivation function
+// ToMapWithIndex is like ToMap, but key also receives the element's index.
 func ToMapWithIndex[T any, K comparable](input []T, key func(int, T) K) map[K]T {
 	out := make(map[K]T, len(input))
 	for i, item := range input {
@@ -22,7 +23,18 @@ func ToMapWithIndex[T any, K comparable](input []T, key func(int, T) K) map[K]T 
 	return out
 }
 
-// ToMapWithIndex is like ToMap2 but the index of the underlying slice is accessible for use in the key derivation function
+// ToMap2 creates a map from a slice using a function that derives both the key
+// and value. If multiple elements produce the same key, the last value wins.
+func ToMap2[T any, K comparable, V any](input []T, get func(T) (K, V)) map[K]V {
+	out := make(map[K]V, len(input))
+	for _, item := range input {
+		key, value := get(item)
+		out[key] = value
+	}
+	return out
+}
+
+// ToMap2WithIndex is like ToMap2, but get also receives the element's index.
 func ToMap2WithIndex[T any, K comparable, Q any](input []T, get func(int, T) (K, Q)) map[K]Q {
 	out := make(map[K]Q, len(input))
 	for i, item := range input {
@@ -32,16 +44,13 @@ func ToMap2WithIndex[T any, K comparable, Q any](input []T, get func(int, T) (K,
 	return out
 }
 
-// ToArrayMap creates a map from a slice with a key-derivation function
-// Useful where the key may be duplicated
+// ToArrayMap groups input by a derived key, preserving input order within each
+// group. The key function is called exactly once per element.
 func ToArrayMap[T any, K comparable](input []T, key func(T) K) map[K][]T {
 	out := make(map[K][]T, len(input))
 	for _, item := range input {
-		if values, exist := out[key(item)]; exist {
-			out[key(item)] = append(values, item)
-		} else {
-			out[key(item)] = []T{item}
-		}
+		itemKey := key(item)
+		out[itemKey] = append(out[itemKey], item)
 	}
 	return out
 }

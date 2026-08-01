@@ -3,8 +3,6 @@ package funk
 import (
 	"reflect"
 	"testing"
-
-	"github.com/kr/pretty"
 )
 
 func TestGroupBy(t *testing.T) {
@@ -37,11 +35,7 @@ func TestGroupBy(t *testing.T) {
 
 	testNumbers := func(expectedNumbers []numberClass, numberType string) {
 		if !reflect.DeepEqual(expectedNumbers, numberMap[numberType]) {
-			t.Fatalf(
-				"Expected to get %s but got %s",
-				pretty.Sprint(expectedNumbers),
-				pretty.Sprint(numberMap[numberType]),
-			)
+			t.Fatalf("GroupBy()[%q] = %v, want %v", numberType, numberMap[numberType], expectedNumbers)
 		}
 	}
 

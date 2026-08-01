@@ -1,19 +1,18 @@
 package funk
 
-// TakeMap returns a map with the n key value pairs
+// TakeMap returns a new map containing at most n entries from input. Which
+// entries are selected is unspecified. A non-positive n returns an empty map.
 func TakeMap[T any, K comparable](input map[K]T, n int) map[K]T {
-	if n > len(input) {
-		return input
+	if n < 0 {
+		n = 0
 	}
-	out := make(map[K]T, len(input))
-	i := 1
+	capacity := min(n, len(input))
+	out := make(map[K]T, capacity)
 	for key, value := range input {
-		if i > n {
-			return out
+		if len(out) == n {
+			break
 		}
 		out[key] = value
-		i++
-
 	}
 	return out
 }

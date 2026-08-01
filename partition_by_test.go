@@ -3,8 +3,6 @@ package funk
 import (
 	"reflect"
 	"testing"
-
-	"github.com/kr/pretty"
 )
 
 func TestPartitionBy(t *testing.T) {
@@ -17,17 +15,9 @@ func TestPartitionBy(t *testing.T) {
 	})
 
 	if !reflect.DeepEqual(expectedL, partitionByL) {
-		t.Fatalf(
-			"Expected to get %s but got %s",
-			pretty.Sprint(expectedL),
-			pretty.Sprint(partitionByL),
-		)
+		t.Fatalf("PartitionBy() left = %v, want %v", partitionByL, expectedL)
 	}
 	if !reflect.DeepEqual(expectedR, partitionByR) {
-		t.Fatalf(
-			"Expected to get %s but got %s",
-			pretty.Sprint(expectedR),
-			pretty.Sprint(partitionByR),
-		)
+		t.Fatalf("PartitionBy() right = %v, want %v", partitionByR, expectedR)
 	}
 }

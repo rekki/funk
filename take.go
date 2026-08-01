@@ -1,16 +1,31 @@
 package funk
 
-// Take returns the first n elements of a slice
+// Take returns a subslice containing at most the first count elements of xs.
+// A non-positive count returns an empty subslice. The result shares storage
+// with xs.
 func Take[A any](xs []A, count int) []A {
-	if count > len(xs) {
+	if count <= 0 {
+		return xs[:0]
+	}
+	if count >= len(xs) {
 		return xs
 	}
 	return xs[:count]
 }
 
+// TakeString returns at most the first count Unicode code points in s. A
+// non-positive count returns an empty string.
 func TakeString(s string, count int) string {
-	if count > len(s) {
-		return s
+	if count <= 0 {
+		return ""
 	}
-	return s[:count]
+
+	runes := 0
+	for i := range s {
+		if runes == count {
+			return s[:i]
+		}
+		runes++
+	}
+	return s
 }

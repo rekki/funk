@@ -45,8 +45,14 @@ func TestUnion(t *testing.T) {
 			args{[]string{}, []string{}},
 			[]string{},
 		},
+		{
+			"Union removes duplicates within each input",
+			args{[]string{"A", "A", "B"}, []string{"B", "C", "C"}},
+			[]string{"A", "B", "C"},
+		},
 	}
-	for _, tt := range tests {
+	for i := range tests {
+		tt := tests[i]
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			got := Union(tt.args.xs, tt.args.ys)

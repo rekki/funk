@@ -1,25 +1,17 @@
 package funk
 
-// UniqueBy returns a new slice with all duplicate values removed
-// It takes a function to derive the key to compare on
-// is stable, meaning the order of the elements is preserved
+// UniqueBy returns the first item for each distinct derived key, preserving
+// input order.
 func UniqueBy[A any, B comparable](items []A, getKey func(A) B) []A {
-	var final []A
-	out := []A{}
-	values := map[B]bool{}
-
+	result := make([]A, 0)
+	seen := make(map[B]struct{})
 	for _, item := range items {
 		itemKey := getKey(item)
-		_, isDuplicate := values[itemKey]
-		if !isDuplicate {
-			out = append(out, item)
-			values[itemKey] = true
+		if _, ok := seen[itemKey]; ok {
+			continue
 		}
+		seen[itemKey] = struct{}{}
+		result = append(result, item)
 	}
-
-	final = make([]A, len(out))
-	// To ensure minimum capacity
-	copy(final, out)
-
-	return final
+	return result
 }

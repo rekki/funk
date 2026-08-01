@@ -1,6 +1,7 @@
 package funk
 
 import (
+	"slices"
 	"testing"
 )
 
@@ -31,18 +32,13 @@ func TestToggleStringInSet(t *testing.T) {
 			args{strings: []string{"test", "test", "new"}, target: "test"},
 			[]string{"new"},
 		},
-
-		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := ToggleStringInSet(
 				tt.args.strings,
 				tt.args.target,
-			); !IdenticalSets(
-				got,
-				tt.want,
-			) {
+			); !slices.Equal(got, tt.want) {
 				t.Errorf("ToggleStringInSet() = %v, want %v", got, tt.want)
 			}
 		})

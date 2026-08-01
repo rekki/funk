@@ -1,6 +1,6 @@
 package funk
 
-// Reduce used to collapse a slice down to a single
+// Reduce folds arr from left to right, starting with initialValue.
 func Reduce[A any, B any](arr []A, f func(B, A) B, initialValue B) B {
 	acc := initialValue
 

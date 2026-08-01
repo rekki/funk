@@ -1,21 +1,16 @@
 package funk
 
-// Unique returns a new slice with all duplicate values removed
-// is stable, meaning the order of the elements is preserved
+// Unique returns a new slice containing each distinct value from items once,
+// preserving first-occurrence order.
 func Unique[A comparable](items []A) []A {
-	var final []A
-	out := []A{}
-	values := map[A]bool{}
+	result := make([]A, 0)
+	seen := make(map[A]struct{})
 	for _, item := range items {
-		_, isDuplicate := values[item]
-		if !isDuplicate {
-			out = append(out, item)
-			values[item] = true
+		if _, ok := seen[item]; ok {
+			continue
 		}
+		seen[item] = struct{}{}
+		result = append(result, item)
 	}
-	final = make([]A, len(out))
-	// To ensure minimum capacity
-	copy(final, out)
-
-	return final
+	return result
 }

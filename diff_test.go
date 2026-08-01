@@ -192,32 +192,32 @@ func TestIdenticalSets(t *testing.T) {
 		want bool
 	}{
 		{
-			"Diff works as expected with identical strings",
+			"IdenticalSets works with identical strings",
 			args{[]string{"A", "B", "C"}, []string{"A", "B", "C"}},
 			true,
 		},
 		{
-			"Diff works as expected with identical sets of strings even in deifferent order",
+			"IdenticalSets ignores order",
 			args{[]string{"A", "B", "C"}, []string{"C", "B", "A"}},
 			true,
 		},
 		{
-			"Diff returns false with sets of different length",
-			args{[]string{"A", "A,", "B", "C"}, []string{"A", "B", "C"}},
+			"IdenticalSets ignores duplicate values",
+			args{[]string{"A", "A", "B", "C"}, []string{"A", "B", "C"}},
+			true,
+		},
+		{
+			"IdenticalSets rejects different distinct values",
+			args{[]string{"A", "A", "B", "C"}, []string{"A", "B", "B", "D"}},
 			false,
 		},
 		{
-			"Diff returns false with sets of same length but with different occurrences of each element",
-			args{[]string{"A", "A,", "B", "C"}, []string{"A", "B", "B", "C"}},
-			false,
-		},
-		{
-			"Diff returns xs when ys nil",
+			"IdenticalSets rejects non-empty and nil",
 			args{[]string{"A", "B", "C"}, nil},
 			false,
 		},
 		{
-			"Diff returns true when xs and ys are nil",
+			"IdenticalSets accepts two nil slices",
 			args{nil, nil},
 			true,
 		},

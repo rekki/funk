@@ -1,21 +1,16 @@
 package funk
 
-import "strings"
+import (
+	"encoding/json"
+	"strings"
+)
 
-// FlattenArray takes  a collection of strings (a,b,c) and returns an array of this form:
-// [ "a", "b", "c" ]
-
+// FlattenArray formats items as a JSON-compatible array of quoted strings.
+// Nil and empty slices are formatted as [].
 func FlattenArray(items []string) string {
-
-	if len(items) == 0 {
-		return "[]"
-	}
-
-	withQuotes := Map(items, func(item string) string {
-		return "\"" + item + "\""
+	quoted := Map(items, func(item string) string {
+		encoded, _ := json.Marshal(item) // Marshaling a string cannot fail.
+		return string(encoded)
 	})
-
-	withQuotesString := strings.Join(withQuotes, ", ")
-	return "[" + withQuotesString + "]"
-
+	return "[" + strings.Join(quoted, ", ") + "]"
 }

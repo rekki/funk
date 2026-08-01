@@ -5,27 +5,22 @@ import (
 	"testing"
 )
 
-// Unbox returns a slice containing all the inputs type-asserted to T
-// Like any type assertion, this panics when the assertion is not possible so pas op.
-//
-// this lives here because i don't immediately see a need for it and i think it's too apt to become
-// yet another way for us to produce panics. if it's useful it can be trivially moved out of
-// _test.go.
-func Unbox[T any](xs ...any) []T {
-	return Map(xs, func(x any) T { return x.(T) })
-}
-
-func rt[T any](t *testing.T, xs []T) {
-	out := Unbox[T](Box(xs...)...)
-
-	if !reflect.DeepEqual(xs, out) {
-		t.Errorf("Unbox(Box(%v)) = %v, want %v", xs, out, xs)
+func TestBox(t *testing.T) {
+	one, two := 1, 2
+	tests := []struct {
+		name string
+		got  []any
+		want []any
+	}{
+		{name: "integers", got: Box(1, 2, 3), want: []any{1, 2, 3}},
+		{name: "strings", got: Box("a", "b"), want: []any{"a", "b"}},
+		{name: "pointers", got: Box(&one, &two), want: []any{&one, &two}},
 	}
-}
-
-func TestBoxRoundTrip(t *testing.T) {
-	rt(t, []int{1, 2, 3, 4, 5})
-	rt(t, []string{"ernie", "burt", "oscar the grouch"})
-	rt(t, []struct{ x int }{{1}, {2}, {3}})
-	rt(t, []*int{new(1), new(2)})
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if !reflect.DeepEqual(tt.got, tt.want) {
+				t.Fatalf("Box() = %v, want %v", tt.got, tt.want)
+			}
+		})
+	}
 }

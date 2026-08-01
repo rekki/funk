@@ -1,6 +1,6 @@
 package funk
 
-// Filter a collection by a predicate.
+// Filter returns elements accepted by predicate, preserving their order.
 func Filter[A any](items []A, predicate func(A) bool) []A {
 	var out []A
 
@@ -13,7 +13,7 @@ func Filter[A any](items []A, predicate func(A) bool) []A {
 	return out
 }
 
-// Filter a collection by a predicate, will never return nil
+// FilterToEmpty is like Filter but always returns a non-nil slice.
 func FilterToEmpty[A any](items []A, predicate func(A) bool) []A {
 	out := make([]A, 0, len(items))
 

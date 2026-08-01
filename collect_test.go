@@ -4,8 +4,6 @@ import (
 	"reflect"
 	"strings"
 	"testing"
-
-	"github.com/kr/pretty"
 )
 
 func TestCollect_withNonPrimitives(t *testing.T) {
@@ -73,11 +71,6 @@ func TestCollect_withPrimitives(t *testing.T) {
 		func(word string) int { return len(word) })         // return their lengths
 
 	if !reflect.DeepEqual(lengths, expectedLengths) {
-		t.Fatalf(
-			"Collecting %s should have given %s but got %s",
-			pretty.Sprint(nums),
-			pretty.Sprint(expectedLengths),
-			pretty.Sprint(lengths),
-		)
+		t.Fatalf("Collecting %v should have given %v but got %v", nums, expectedLengths, lengths)
 	}
 }

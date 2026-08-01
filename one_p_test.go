@@ -3,9 +3,13 @@ package funk
 import (
 	"reflect"
 	"testing"
-
-	"github.com/kr/pretty"
 )
+
+func TestOnePPanicsOnEmptySlice(t *testing.T) {
+	assertPanics(t, func() {
+		OneP([]int{}, func(current, next int) bool { return false })
+	})
+}
 
 func TestOneP(t *testing.T) {
 	numbers := []numberClass{
@@ -20,11 +24,7 @@ func TestOneP(t *testing.T) {
 	})
 
 	if !reflect.DeepEqual(selectedOne, expected) {
-		t.Fatalf(
-			"Expected to get %s but got %s",
-			pretty.Sprint(selectedOne),
-			pretty.Sprint(expected),
-		)
+		t.Fatalf("OneP() = %v, want %v", selectedOne, expected)
 	}
 }
 
@@ -38,7 +38,7 @@ func TestOneRef(t *testing.T) {
 	found := OneRef(numbers)
 
 	if !reflect.DeepEqual(found, expected) {
-		t.Fatalf("Expected to get %s but got %s", pretty.Sprint(found), pretty.Sprint(expected))
+		t.Fatalf("OneRef() = %v, want %v", found, expected)
 	}
 
 	emptyNumbers := []*int{}
@@ -47,10 +47,6 @@ func TestOneRef(t *testing.T) {
 	foundEmpty := OneRef(emptyNumbers)
 
 	if !reflect.DeepEqual(foundEmpty, expectedEmpty) {
-		t.Fatalf(
-			"Expected to get %s but got %s",
-			pretty.Sprint(foundEmpty),
-			pretty.Sprint(expectedEmpty),
-		)
+		t.Fatalf("OneRef() = %v, want %v", foundEmpty, expectedEmpty)
 	}
 }

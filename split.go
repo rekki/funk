@@ -1,49 +1,46 @@
 package funk
 
-// `split` divide a slice into multiple subslice of
-// a given maximum size
+// Split divides from into subslices containing at most size elements. The
+// subslices share storage with from. Empty input produces no chunks. Split
+// panics if size is not positive.
 func Split[A any](from []A, size int) [][]A {
+	if size <= 0 {
+		panic("funk: Split size must be positive")
+	}
+	if len(from) == 0 {
+		return [][]A{}
+	}
 	if len(from) <= size {
 		return [][]A{from}
 	}
 
-	split := [][]A{}
-
-	chunksCount := len(from) / size
-	if len(from)%size > 0 {
-		chunksCount++
+	chunks := make([][]A, 0, (len(from)-1)/size+1)
+	for start := 0; start < len(from); start += size {
+		end := min(start+size, len(from))
+		chunks = append(chunks, from[start:end])
 	}
-
-	for i := 0; i < chunksCount; i++ {
-		limit := min(size+i*size, len(from))
-
-		split = append(split, from[i*size:limit])
-	}
-
-	return split
+	return chunks
 }
 
-// SplitMap divides a map into multiple subslice of maps of
-// a given maximum size
+// SplitMap divides from into new maps containing at most size entries. Map
+// iteration order, and therefore chunk membership, is unspecified. Empty input
+// produces no chunks. SplitMap panics if size is not positive.
 func SplitMap[K comparable, V any](from map[K]V, size int) []map[K]V {
-	if len(from) <= size {
-		return []map[K]V{from}
+	if size <= 0 {
+		panic("funk: SplitMap size must be positive")
 	}
-
-	splitMaps := []map[K]V{}
-
-	count := 0
-	subMap := map[K]V{}
+	if len(from) == 0 {
+		return []map[K]V{}
+	}
+	chunkCapacity := min(size, len(from))
+	splitMaps := make([]map[K]V, 0, (len(from)-1)/size+1)
+	subMap := make(map[K]V, chunkCapacity)
 	for k, v := range from {
-		if count == size {
+		if len(subMap) == size {
 			splitMaps = append(splitMaps, subMap)
-			subMap = map[K]V{}
-			count = 0
+			subMap = make(map[K]V, chunkCapacity)
 		}
 		subMap[k] = v
-		count++
 	}
-	splitMaps = append(splitMaps, subMap)
-
-	return splitMaps
+	return append(splitMaps, subMap)
 }

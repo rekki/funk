@@ -1,10 +1,7 @@
 package funk
 
-// Box returns a slice containing each input boxed into an interface{}
-// useful for things like database/sql and friends that need interface{}.
+// Box converts xs to a slice of any values, as required by APIs such as
+// database/sql.
 func Box[T any](xs ...T) []any {
 	return Map(xs, func(x T) any { return x })
 }
-
-// there is an Unbox implementation in box_test.go that you can move here if a real use for it
-// arises.

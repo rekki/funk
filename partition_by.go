@@ -1,7 +1,7 @@
 package funk
 
-// PartitionBy Splits one collection into two.
-// The left collection passes the predicate the right does not
+// PartitionBy splits from into values accepted and rejected by predicate,
+// preserving input order in both results.
 func PartitionBy[A any](from []A, filter func(A) bool) (left []A, right []A) {
 	var l []A
 	var r []A

@@ -3,9 +3,15 @@ package funk
 import (
 	"reflect"
 	"testing"
-
-	"github.com/kr/pretty"
 )
+
+func TestFilterToEmptyIncludesMatches(t *testing.T) {
+	got := FilterToEmpty([]int{1, 2}, func(value int) bool { return value == 2 })
+	want := []int{2}
+	if !reflect.DeepEqual(got, want) {
+		t.Fatalf("FilterToEmpty() = %v, want %v", got, want)
+	}
+}
 
 func TestFilter(t *testing.T) {
 	ints := []int{0, 1, 2, 3, 4}
@@ -16,7 +22,7 @@ func TestFilter(t *testing.T) {
 	})
 
 	if !reflect.DeepEqual(filtered, expected) {
-		t.Fatalf("Expected to get %s but got %s", pretty.Sprint(filtered), pretty.Sprint(expected))
+		t.Fatalf("Filter() = %v, want %v", filtered, expected)
 	}
 }
 

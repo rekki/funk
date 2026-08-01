@@ -4,8 +4,6 @@ import (
 	"reflect"
 	"strings"
 	"testing"
-
-	"github.com/kr/pretty"
 )
 
 func TestMap_withNonPrimitives(t *testing.T) {
@@ -60,11 +58,6 @@ func TestMap_withPrimitives(t *testing.T) {
 		return len(word)
 	})
 	if !reflect.DeepEqual(lengths, expectedLengths) {
-		t.Fatalf(
-			"Mapping %s should have given %s but got %s",
-			pretty.Sprint(nums),
-			pretty.Sprint(expectedLengths),
-			pretty.Sprint(lengths),
-		)
+		t.Fatalf("Map(%v) = %v, want %v", nums, lengths, expectedLengths)
 	}
 }
